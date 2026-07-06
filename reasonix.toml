@@ -1,0 +1,2 @@
+[permissions]
+allow = ["Bash(docker-compose version 2>&1 || docker compose version 2>&1)"]
