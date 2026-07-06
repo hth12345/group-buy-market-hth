@@ -1,6 +1,7 @@
 package com.hth.infrastructure.dao.po;
 
-import cn.bugstack.infrastructure.dao.po.base.Page;
+import com.hth.infrastructure.dao.po.base.Page;
+import com.hth.infrastructure.dao.po.base.Page;
 import lombok.*;
 
 import java.math.BigDecimal;
