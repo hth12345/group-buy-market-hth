@@ -2,6 +2,8 @@ CREATE TABLE IF NOT EXISTS group_buy_activity (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增',
     activity_id BIGINT NOT NULL COMMENT '活动ID',
     activity_name VARCHAR(128) NOT NULL COMMENT '活动名称',
+    source VARCHAR(8) NOT NULL COMMENT '来源',
+    channel VARCHAR(8) NOT NULL COMMENT '渠道',
     discount_id VARCHAR(8) NOT NULL COMMENT '折扣ID',
     group_type TINYINT NOT NULL DEFAULT 0 COMMENT '拼团方式（0自动成团、1达成目标拼团）',
     take_limit_count INT NOT NULL DEFAULT 1 COMMENT '拼团次数限制',
