@@ -7,4 +7,5 @@ import java.math.BigDecimal;
 public interface IDiscountCalculateService {
 
     BigDecimal calculate(String userId, BigDecimal originalPrice, GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount);
+
 }

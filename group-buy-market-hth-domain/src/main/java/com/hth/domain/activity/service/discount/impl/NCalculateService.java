@@ -13,6 +13,6 @@ public class NCalculateService extends AbstractDiscountCalculateService {
     protected BigDecimal doCalculate(BigDecimal originalPrice, GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount) {
         String marketExpr = groupBuyDiscount.getMarketExpr();
         BigDecimal deductionPrice = new BigDecimal(marketExpr);
-        return deductionPrice;
+        return isLessThanZero(deductionPrice);
     }
 }

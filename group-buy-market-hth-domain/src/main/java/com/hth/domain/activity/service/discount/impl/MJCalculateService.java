@@ -20,9 +20,6 @@ public class MJCalculateService extends AbstractDiscountCalculateService {
             return originalPrice;
         }
         BigDecimal deductionPrice = originalPrice.subtract(y);
-        if(deductionPrice.compareTo(BigDecimal.ZERO) <= 0){
-            return new BigDecimal(0.01);
-        }
-        return deductionPrice;
+        return isLessThanZero(deductionPrice);
     }
 }
