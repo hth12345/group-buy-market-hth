@@ -2,6 +2,8 @@ package com.hth.domain.activity.service.trial.factory;
 
 import com.hth.domain.activity.model.entity.MarketProductEntity;
 import com.hth.domain.activity.model.entity.TrialBalanceEntity;
+import com.hth.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import com.hth.domain.activity.model.valobj.SkuVO;
 import com.hth.domain.activity.service.trial.node.RootNode;
 import com.hth.types.design.framework.tree.StrategyHandler;
 import lombok.AllArgsConstructor;
@@ -33,7 +35,8 @@ public class DefaultActivityStrategyFactory {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class DynamicContext {
-
+        private GroupBuyActivityDiscountVO groupBuyActivityDiscountVO;
+        private SkuVO skuVO;
     }
 
 }
