@@ -13,10 +13,6 @@ public class ZJCalculateService extends AbstractDiscountCalculateService {
     protected BigDecimal doCalculate(BigDecimal originalPrice, GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount) {
         String marketExpr = groupBuyDiscount.getMarketExpr();
         BigDecimal deductionPrice = originalPrice.subtract(new BigDecimal(marketExpr));
-
-        if(deductionPrice.compareTo(BigDecimal.ZERO) <= 0){
-            return new BigDecimal(0.01);
-        }
-        return deductionPrice;
+        return isLessThanZero(deductionPrice);
     }
 }
