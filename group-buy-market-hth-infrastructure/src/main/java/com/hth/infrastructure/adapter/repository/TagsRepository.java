@@ -15,6 +15,9 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
+/**
+ * 人群标签仓储
+ */
 @Repository
 public class TagsRepository implements ITagRepository {
 
