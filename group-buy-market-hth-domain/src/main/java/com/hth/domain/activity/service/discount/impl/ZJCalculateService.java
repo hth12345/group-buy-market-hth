@@ -11,8 +11,11 @@ import java.math.BigDecimal;
 public class ZJCalculateService extends AbstractDiscountCalculateService {
     @Override
     protected BigDecimal doCalculate(BigDecimal originalPrice, GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount) {
+        // 折扣表达式 - 直减为扣减金额
         String marketExpr = groupBuyDiscount.getMarketExpr();
+        // 折扣价格
         BigDecimal deductionPrice = originalPrice.subtract(new BigDecimal(marketExpr));
+
         return isLessThanZero(deductionPrice);
     }
 }

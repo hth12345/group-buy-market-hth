@@ -1,5 +1,6 @@
 package com.hth.domain.activity.service.trial.node;
 
+import com.alibaba.fastjson.JSON;
 import com.hth.domain.activity.model.entity.MarketProductEntity;
 import com.hth.domain.activity.model.entity.TrialBalanceEntity;
 import com.hth.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
@@ -41,20 +42,26 @@ public class MarketNode extends AbstractGroupBuyMarketSupport<MarketProductEntit
 
     @Override
     protected void multiThread(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws ExecutionException, InterruptedException, TimeoutException {
+        //异步查询活动配置
         QueryGroupBuyActivityDiscountVOThreadTask queryGroupBuyActivityDiscountVOThreadTask = new QueryGroupBuyActivityDiscountVOThreadTask(requestParameter.getSource(), requestParameter.getChannel(),requestParameter.getGoodsId(), activityRepository);
         FutureTask<GroupBuyActivityDiscountVO> groupBuyActivityDiscountVOFutureTask = new FutureTask<>(queryGroupBuyActivityDiscountVOThreadTask);
         threadPoolExecutor.execute(groupBuyActivityDiscountVOFutureTask);
 
+        // 异步查询商品信息 - 在实际生产中，商品有同步库或者调用接口查询。这里暂时使用DB方式查询。
         QuerySkuVOFromDBThreadTask querySkuVOFromDBThreadTask = new QuerySkuVOFromDBThreadTask(requestParameter.getGoodsId(), activityRepository);
         FutureTask<SkuVO> skuVOFutureTask = new FutureTask<>(querySkuVOFromDBThreadTask);
         threadPoolExecutor.execute(skuVOFutureTask);
 
+        // 写入上下文 - 对于一些复杂场景，获取数据的操作，有时候会在下N个节点获取，这样前置查询数据，可以提高接口响应效率
         dynamicContext.setGroupBuyActivityDiscountVO(groupBuyActivityDiscountVOFutureTask.get(timeout, TimeUnit.MINUTES));
         dynamicContext.setSkuVO(skuVOFutureTask.get(timeout, TimeUnit.MINUTES));
     }
 
     @Override
     public TrialBalanceEntity doApply(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
+        log.info("拼团商品查询试算服务-MarketNode userId:{} requestParameter:{}", requestParameter.getUserId(), JSON.toJSONString(requestParameter));
+
+        // 获取上下文数据
         GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = dynamicContext.getGroupBuyActivityDiscountVO();
         if (groupBuyActivityDiscountVO == null) {
             return router(requestParameter, dynamicContext);
@@ -64,11 +71,12 @@ public class MarketNode extends AbstractGroupBuyMarketSupport<MarketProductEntit
         if (groupBuyDiscount == null ||skuVO == null) {
             return router(requestParameter, dynamicContext);
         }
-        //拼团优惠试算
+        // 拼团优惠试算
         IDiscountCalculateService discountCalculateService = discountCalculateServiceMap.get(groupBuyDiscount.getMarketPlan());
         if(discountCalculateService == null) {
             throw new AppException(ResponseCode.E0001.getCode(),ResponseCode.E0001.getInfo());
         }
+        // 折扣价格
         BigDecimal deductionPrice = discountCalculateService.calculate(requestParameter.getUserId(), skuVO.getOriginalPrice(), groupBuyDiscount);
         dynamicContext.setDeductionPrice(deductionPrice);
 
@@ -77,6 +85,7 @@ public class MarketNode extends AbstractGroupBuyMarketSupport<MarketProductEntit
 
     @Override
     public StrategyHandler<MarketProductEntity, DefaultActivityStrategyFactory.DynamicContext, TrialBalanceEntity> get(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
+        // 不存在配置的拼团活动，走异常节点
         if(dynamicContext.getGroupBuyActivityDiscountVO()==null||
                 dynamicContext.getDeductionPrice()==null||
                 dynamicContext.getSkuVO()==null){
