@@ -28,6 +28,7 @@ public class EndNode extends AbstractGroupBuyMarketSupport<MarketProductEntity, 
 
         GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = dynamicContext.getGroupBuyActivityDiscountVO();
         SkuVO skuVO = dynamicContext.getSkuVO();
+        //折扣价格
         BigDecimal deductionPrice = dynamicContext.getDeductionPrice();
         // 返回空结果
         return TrialBalanceEntity.builder()
