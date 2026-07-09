@@ -34,9 +34,9 @@ public class MarketNode extends AbstractGroupBuyMarketSupport<MarketProductEntit
     @Resource
     private ThreadPoolExecutor threadPoolExecutor;
     @Resource
-    private EndNode endNode;
-    @Resource
     private ErrorNode errorNode;
+    @Resource
+    private TagNode tagNode;
     @Resource
     private Map<String, IDiscountCalculateService> discountCalculateServiceMap;
 
@@ -91,6 +91,6 @@ public class MarketNode extends AbstractGroupBuyMarketSupport<MarketProductEntit
                 dynamicContext.getSkuVO()==null){
             return errorNode;
         }
-        return endNode;
+        return tagNode;
     }
 }
