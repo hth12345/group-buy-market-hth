@@ -13,6 +13,7 @@ import com.hth.infrastructure.dao.po.GroupBuyActivity;
 import com.hth.infrastructure.dao.po.GroupBuyDiscount;
 import com.hth.infrastructure.dao.po.SCSkuActivity;
 import com.hth.infrastructure.dao.po.Sku;
+import com.hth.infrastructure.dcc.DCCService;
 import com.hth.infrastructure.redis.IRedisService;
 import lombok.Builder;
 import org.redisson.api.RBitSet;
@@ -32,6 +33,8 @@ public class ActivityRepository implements IActivityRepository {
     private ISCSkuActivityDao scSkuActivityDao;
     @Resource
     private IRedisService redisService;
+    @Resource
+    private DCCService dccService;
 
     public GroupBuyActivityDiscountVO queryGroupBuyActivityDiscountVO(long activityId) {
         // 根据活动id查询配置中最新的1个有效的活动
@@ -110,6 +113,16 @@ public class ActivityRepository implements IActivityRepository {
         }
         // 判断用户是否存在人群中
         return bitSet.get(redisService.getIndexFromUserId(userId));
+    }
+
+    @Override
+    public boolean downgradeSwitch() {
+        return dccService.isDowngradeSwitch();
+    }
+
+    @Override
+    public boolean cutRange(String userId) {
+        return dccService.isCutRange(userId);
     }
 
 }
