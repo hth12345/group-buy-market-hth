@@ -5,6 +5,8 @@ import com.hth.domain.activity.model.entity.TrialBalanceEntity;
 import com.hth.domain.activity.service.trial.AbstractGroupBuyMarketSupport;
 import com.hth.domain.activity.service.trial.factory.DefaultActivityStrategyFactory;
 import com.hth.types.design.framework.tree.StrategyHandler;
+import com.hth.types.enums.ResponseCode;
+import com.hth.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +26,14 @@ public class SwitchRoot extends AbstractGroupBuyMarketSupport<MarketProductEntit
 
     @Override
     public TrialBalanceEntity doApply(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
+        String userId = requestParameter.getUserId();
+        if(activityRepository.downgradeSwitch()){
+            throw new AppException(ResponseCode.E0003.getCode(),ResponseCode.E0003.getInfo());
+        }
+
+        if(!activityRepository.cutRange(userId)){
+            throw new AppException(ResponseCode.E0004.getCode(),ResponseCode.E0004.getInfo());
+        }
         return router(requestParameter, dynamicContext);
     }
 
