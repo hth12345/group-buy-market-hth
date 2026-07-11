@@ -16,6 +16,7 @@ public enum ResponseCode {
     E0002("E0002","无"),
     E0003("E0003","拼团活动降级拦截"),
     E0004("E0004","拼团活动切量拦截"),
+    E0005("E0005","拼团活动白名单拦截"),
     ;
 
     private String code;

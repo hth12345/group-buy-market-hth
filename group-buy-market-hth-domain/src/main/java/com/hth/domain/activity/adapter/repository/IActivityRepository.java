@@ -17,4 +17,6 @@ public interface IActivityRepository {
     boolean downgradeSwitch();
 
     boolean cutRange(String userId);
+
+    boolean whiteList(String userId);
 }
