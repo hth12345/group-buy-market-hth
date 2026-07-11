@@ -12,6 +12,9 @@ public class DCCService {
     @DCCValue("cutRange:100")
     private String cutRange;
 
+    @DCCValue("whiteList:xiaofuge")
+    private String whiteList;
+
     public boolean isDowngradeSwitch(){
         return "1".equals(downgradeSwitch);
     }
@@ -22,5 +25,8 @@ public class DCCService {
             return true;
         }
         return false;
+    }
+    public boolean isWhiteList(String userId){
+        return whiteList.equals(userId);
     }
 }
