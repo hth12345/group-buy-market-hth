@@ -1,6 +1,6 @@
 package com.hth.trigger.http;
 
-import com.hth.api.response.IDCCService;
+import com.hth.api.IDCCService;
 import com.hth.api.response.Response;
 import com.hth.types.enums.ResponseCode;
 import lombok.extern.slf4j.Slf4j;
