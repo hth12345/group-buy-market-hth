@@ -1,11 +1,15 @@
 package com.hth.domain.activity.service.discount;
 
+import com.hth.domain.activity.adapter.repository.IActivityRepository;
 import com.hth.domain.activity.model.valobj.DiscountTypeEnum;
 import com.hth.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 
 public abstract class AbstractDiscountCalculateService implements IDiscountCalculateService{
+    @Resource
+    private IActivityRepository repository;
     @Override
     public BigDecimal calculate(String userId, BigDecimal originalPrice, GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount) {
         if(DiscountTypeEnum.TAG.equals(groupBuyDiscount.getDiscountType())){
@@ -17,8 +21,9 @@ public abstract class AbstractDiscountCalculateService implements IDiscountCalcu
         return doCalculate(originalPrice,groupBuyDiscount);
     }
 
+    // 人群过滤 - 限定人群优惠
     private boolean filterTagId(String userId, String tagId) {
-        return true;
+        return repository.isTagCrowdRange(userId, tagId);
     }
 
     protected abstract BigDecimal doCalculate(BigDecimal originalPrice, GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount);
