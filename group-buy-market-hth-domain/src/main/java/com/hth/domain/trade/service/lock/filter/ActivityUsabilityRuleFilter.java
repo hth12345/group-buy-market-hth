@@ -1,11 +1,10 @@
-package com.hth.domain.trade.service.filter;
+package com.hth.domain.trade.service.lock.filter;
 
-import com.hth.domain.activity.adapter.repository.IActivityRepository;
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.entity.GroupBuyActivityEntity;
 import com.hth.domain.trade.model.entity.TradeRuleCommandEntity;
 import com.hth.domain.trade.model.entity.TradeRuleFilterBackEntity;
-import com.hth.domain.trade.service.factory.TradeRuleFilterFactory;
+import com.hth.domain.trade.service.lock.factory.TradeRuleFilterFactory;
 import com.hth.types.design.framework.link.model2.handler.ILogicHandler;
 import com.hth.types.enums.ActivityStatusEnumVO;
 import com.hth.types.enums.ResponseCode;
