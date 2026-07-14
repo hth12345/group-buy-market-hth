@@ -1,7 +1,9 @@
 package com.hth.domain.trade.adapter.repository;
 
 import com.hth.domain.trade.model.aggregate.GroupBuyOrderAggregate;
+import com.hth.domain.trade.model.aggregate.GroupBuyTeamSettlementAggregate;
 import com.hth.domain.trade.model.entity.GroupBuyActivityEntity;
+import com.hth.domain.trade.model.entity.GroupBuyTeamEntity;
 import com.hth.domain.trade.model.entity.MarketPayOrderEntity;
 import com.hth.domain.trade.model.valobj.GroupBuyProgressVO;
 
@@ -15,5 +17,9 @@ public interface ITradeRepository {
     GroupBuyActivityEntity queryGroupBuyActivityByActivityId(long activityId);
 
     int queryOrderCountByActivityId(long activityId, String userId);
+
+    GroupBuyTeamEntity queryGroupBuyTeamByTeamId(String teamId);
+
+    void settlementMarketPayOrder(GroupBuyTeamSettlementAggregate groupBuyTeamSettlementAggregate);
 
 }

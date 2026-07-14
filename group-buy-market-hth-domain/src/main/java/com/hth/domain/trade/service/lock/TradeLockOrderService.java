@@ -1,16 +1,17 @@
-package com.hth.domain.trade.service;
+package com.hth.domain.trade.service.lock;
 
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.aggregate.GroupBuyOrderAggregate;
 import com.hth.domain.trade.model.entity.*;
 import com.hth.domain.trade.model.valobj.GroupBuyProgressVO;
-import com.hth.domain.trade.service.factory.TradeRuleFilterFactory;
+import com.hth.domain.trade.service.ITradeLockOrderService;
+import com.hth.domain.trade.service.lock.factory.TradeRuleFilterFactory;
 import com.hth.types.design.framework.link.model2.chain.BusinessLinkedList;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 @Service
-public class TradeOrderService implements ITradeOrderService {
+public class TradeLockOrderService implements ITradeLockOrderService {
     @Resource
     private ITradeRepository repository;
     @Resource
