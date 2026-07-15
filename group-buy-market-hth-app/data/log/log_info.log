@@ -790,3 +790,267 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 26-07-14.15:48:12.365 [main            ] INFO  TradeSettlementOrderServiceTest - 测试结果:{"activityId":100123,"channel":"c01","outTradeNo":"233689463261","source":"s01","teamId":"rkzqHEmP","userId":"hth02"}
 26-07-14.15:48:12.384 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
 26-07-14.15:48:12.399 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:20:13.514 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Starting IIndexGroupBuyMarketServiceTest using Java 1.8.0_411 on hth with PID 5712 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:20:13.515 [main            ] INFO  IIndexGroupBuyMarketServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:20:15.095 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:20:15.100 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:20:15.167 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 0 Redis repository interfaces.
+26-07-14.22:20:15.700 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:20:16.355 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:20:17.833 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:20:19.202 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:20:19.229 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:20:19.303 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:20:22.370 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:20:22.439 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Started IIndexGroupBuyMarketServiceTest in 9.595 seconds (JVM running for 11.058)
+26-07-14.22:20:23.008 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:xiaofuge requestParameter:{"channel":"c02","goodsId":"9890002","source":"s02","userId":"xiaofuge"}
+26-07-14.22:20:23.045 [pool-2-thread-2 ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:20:23.337 [pool-2-thread-2 ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:20:23.403 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:xiaofuge requestParameter:{"channel":"c02","goodsId":"9890002","source":"s02","userId":"xiaofuge"}
+26-07-14.22:20:23.403 [main            ] INFO  ErrorNode              - 拼团商品查询试算服务-NoMarketNode userId:xiaofuge requestParameter:{"channel":"c02","goodsId":"9890002","source":"s02","userId":"xiaofuge"}
+26-07-14.22:20:23.429 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:20:23.440 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:22:21.446 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Starting IIndexGroupBuyMarketServiceTest using Java 1.8.0_411 on hth with PID 26380 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:22:21.448 [main            ] INFO  IIndexGroupBuyMarketServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:22:22.652 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:22:22.657 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:22:22.709 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 0 Redis repository interfaces.
+26-07-14.22:22:23.103 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$542366e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:22:23.541 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:22:24.973 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:22:26.305 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:22:26.340 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:22:26.404 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:22:29.434 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:22:29.507 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Started IIndexGroupBuyMarketServiceTest in 8.617 seconds (JVM running for 9.743)
+26-07-14.22:22:29.994 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890002","source":"s01","userId":"xiaofuge"}
+26-07-14.22:22:30.037 [pool-2-thread-1 ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:22:30.325 [pool-2-thread-1 ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:22:30.388 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890002","source":"s01","userId":"xiaofuge"}
+26-07-14.22:22:30.388 [main            ] INFO  ErrorNode              - 拼团商品查询试算服务-NoMarketNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890002","source":"s01","userId":"xiaofuge"}
+26-07-14.22:22:30.413 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:22:30.422 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:23:55.266 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Starting IIndexGroupBuyMarketServiceTest using Java 1.8.0_411 on hth with PID 31228 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:23:55.267 [main            ] INFO  IIndexGroupBuyMarketServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:23:56.336 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:23:56.340 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:23:56.387 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
+26-07-14.22:23:56.767 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$c20e5ffc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:23:57.189 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:23:58.528 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:23:59.811 [redisson-netty-1-5] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:23:59.839 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:23:59.901 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:24:03.159 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:24:03.226 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Started IIndexGroupBuyMarketServiceTest in 8.496 seconds (JVM running for 9.709)
+26-07-14.22:24:03.751 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:24:03.793 [pool-2-thread-2 ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:24:04.073 [pool-2-thread-2 ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:24:04.152 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:24:04.158 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:24:04.159 [main            ] INFO  IIndexGroupBuyMarketServiceTest - 请求参数:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:24:04.182 [main            ] INFO  IIndexGroupBuyMarketServiceTest - 返回结果:{"deductionPrice":20.00,"endTime":1891333180000,"goodsId":"9890001","goodsName":"《手写MyBatis：渐进式源码实践》","groupBuyActivityDiscountVO":{"activityId":100123,"activityName":"测试活动","enable":true,"endTime":1891333180000,"groupBuyDiscount":{"discountDesc":"直减优惠20元","discountName":"直减优惠20元","discountType":"BASE","marketExpr":"20","marketPlan":"ZJ"},"groupType":0,"startTime":1733566780000,"status":1,"tagId":"RQ_KJHKL","tagScope":"1","takeLimitCount":1,"target":3,"validTime":15,"visible":false},"isEnable":true,"isVisible":true,"originalPrice":100.00,"payPrice":80.00,"startTime":1733566780000,"targetCount":3}
+26-07-14.22:24:04.207 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:24:04.222 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:26:21.655 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Starting IIndexGroupBuyMarketServiceTest using Java 1.8.0_411 on hth with PID 29464 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:26:21.656 [main            ] INFO  IIndexGroupBuyMarketServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:26:22.737 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:26:22.740 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:26:22.788 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:26:23.171 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:26:23.593 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:26:24.941 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:26:26.195 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:26:26.219 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:26:26.275 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:26:29.079 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:26:29.142 [main            ] INFO  IIndexGroupBuyMarketServiceTest - Started IIndexGroupBuyMarketServiceTest in 8.036 seconds (JVM running for 9.082)
+26-07-14.22:26:29.591 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:26:29.626 [pool-2-thread-1 ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:26:29.875 [pool-2-thread-1 ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:26:29.939 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:26:29.945 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:xiaofuge requestParameter:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:26:29.946 [main            ] INFO  IIndexGroupBuyMarketServiceTest - 请求参数:{"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:26:29.963 [main            ] INFO  IIndexGroupBuyMarketServiceTest - 返回结果:{"deductionPrice":20.00,"endTime":1891333180000,"goodsId":"9890001","goodsName":"《手写MyBatis：渐进式源码实践》","groupBuyActivityDiscountVO":{"activityId":100123,"activityName":"测试活动","enable":true,"endTime":1891333180000,"groupBuyDiscount":{"discountDesc":"直减优惠20元","discountName":"直减优惠20元","discountType":"BASE","marketExpr":"20","marketPlan":"ZJ"},"groupType":0,"startTime":1733566780000,"status":1,"tagId":"RQ_KJHKL","tagScope":"1","takeLimitCount":1,"target":3,"validTime":15,"visible":false},"isEnable":true,"isVisible":true,"originalPrice":100.00,"payPrice":80.00,"startTime":1733566780000,"targetCount":3}
+26-07-14.22:26:29.983 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:26:29.995 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:27:25.149 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 26688 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:27:25.150 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-07-14.22:27:26.200 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:27:26.204 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:27:26.252 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:27:26.623 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$c20e5ffc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:27:27.037 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:27:28.369 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:27:29.623 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:27:29.646 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:27:29.704 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:27:32.468 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:27:32.533 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 7.95 seconds (JVM running for 9.061)
+26-07-14.22:27:32.990 [main            ] INFO  MarketTradeController  - 营销交易锁单:xiaofuge LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","outTradeNo":"028638158028","source":"s01","userId":"xiaofuge"}
+26-07-14.22:27:33.021 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:27:33.262 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:27:33.323 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:xiaofuge requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:27:33.350 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:xiaofuge requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:27:33.356 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:xiaofuge requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"xiaofuge"}
+26-07-14.22:27:33.423 [main            ] INFO  MarketTradeController  - 交易锁单记录(新):xiaofuge marketPayOrderEntity:{"deductionPrice":20.00,"orderId":"owVMWaGbvOla","teamId":"22T0QAjc","tradeOrderStatusEnumVO":"CREATE"}
+26-07-14.22:27:33.429 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","outTradeNo":"028638158028","source":"s01","userId":"xiaofuge"} res:{"code":"0000","data":{"deductionPrice":20.00,"orderId":"owVMWaGbvOla","tradeOrderStatus":0},"info":"成功"}
+26-07-14.22:27:33.449 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:27:33.464 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:28:14.736 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 26620 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:28:14.738 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:28:15.765 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:28:15.770 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:28:15.817 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:28:16.188 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$ef8be132] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:28:16.615 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:28:17.945 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:28:19.206 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:28:19.229 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:28:19.287 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:28:21.925 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:28:22.004 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 7.821 seconds (JVM running for 8.93)
+26-07-14.22:28:40.538 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 23096 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:28:40.539 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:28:41.555 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:28:41.559 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:28:41.606 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:28:41.991 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:28:42.453 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:28:43.796 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:28:45.064 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:28:45.090 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:28:45.147 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:28:47.869 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:28:47.935 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 7.921 seconds (JVM running for 8.964)
+26-07-14.22:28:48.223 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:28:48.463 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:28:48.550 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:28:48.558 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:29:26.328 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 29776 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:29:26.329 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:29:27.340 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:29:27.344 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:29:27.391 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 0 Redis repository interfaces.
+26-07-14.22:29:27.764 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:29:28.181 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:29:29.522 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:29:30.766 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:29:30.789 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:29:30.848 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:29:33.595 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:29:33.657 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 7.846 seconds (JVM running for 8.894)
+26-07-14.22:29:33.938 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:29:34.180 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:29:34.271 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:29:34.281 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:30:40.498 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 24140 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:30:40.500 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:30:41.531 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:30:41.535 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:30:41.583 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:30:41.976 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:30:42.445 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:30:43.813 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:30:45.098 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:30:45.121 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:30:45.180 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:30:47.816 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:30:47.884 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 7.952 seconds (JVM running for 9.074)
+26-07-14.22:30:48.168 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:30:48.411 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:30:48.496 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:30:48.504 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:34:13.261 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 15076 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:34:13.263 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:34:14.353 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:34:14.357 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:34:14.403 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:34:14.798 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:34:15.215 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:34:16.554 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:34:17.824 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:34:17.850 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:34:17.912 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:34:20.664 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:34:20.740 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 8.018 seconds (JVM running for 9.185)
+26-07-14.22:34:21.052 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:34:21.309 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:34:21.398 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:34:21.406 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:37:38.941 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 33676 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:37:38.942 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:37:39.990 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:37:39.993 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:37:40.041 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:37:40.423 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:37:40.844 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:37:42.411 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:37:43.884 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:37:43.910 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:37:43.993 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:37:47.526 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:37:47.628 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 9.233 seconds (JVM running for 10.363)
+26-07-14.22:37:47.990 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:37:48.271 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:37:48.375 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:37:48.386 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:43:47.086 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 14480 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:43:47.087 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:43:48.264 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:43:48.268 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:43:48.321 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:43:48.729 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$ef8be132] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:43:49.268 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:43:50.670 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:43:51.971 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:43:51.996 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:43:52.061 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:43:54.959 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:43:55.022 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 8.53 seconds (JVM running for 9.784)
+26-07-14.22:43:55.387 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:43:55.663 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:43:55.769 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:43:55.779 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.22:46:48.959 [main            ] INFO  TradeSettlementOrderServiceTest - Starting TradeSettlementOrderServiceTest using Java 1.8.0_411 on hth with PID 26392 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.22:46:48.961 [main            ] INFO  TradeSettlementOrderServiceTest - The following 1 profile is active: "dev"
+26-07-14.22:46:50.000 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.22:46:50.004 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.22:46:50.050 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 30 ms. Found 0 Redis repository interfaces.
+26-07-14.22:46:50.465 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$422a8da1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:46:50.984 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:46:52.590 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.22:46:54.167 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:46:54.205 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.22:46:54.299 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.22:46:57.613 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.22:46:57.712 [main            ] INFO  TradeSettlementOrderServiceTest - Started TradeSettlementOrderServiceTest in 9.285 seconds (JVM running for 10.367)
+26-07-14.22:46:58.062 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.22:46:58.322 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.22:46:58.701 [main            ] INFO  TradeSettlementOrderServiceTest - 请求参数:{"channel":"c01","outTradeNo":"028638158028","outTradeTime":"2026-07-14 22:46:58.026","source":"s01","userId":"xiaofuge"}
+26-07-14.22:46:58.707 [main            ] INFO  TradeSettlementOrderServiceTest - 测试结果:{"activityId":100123,"channel":"c01","outTradeNo":"028638158028","source":"s01","teamId":"22T0QAjc","userId":"xiaofuge"}
+26-07-14.22:46:58.729 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.22:46:58.748 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-14.23:16:16.681 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 25324 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-14.23:16:16.683 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-07-14.23:16:17.904 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-14.23:16:17.908 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-14.23:16:17.962 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 31 ms. Found 0 Redis repository interfaces.
+26-07-14.23:16:18.377 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$ef8be132] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.23:16:18.923 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.23:16:20.328 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-14.23:16:21.628 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.23:16:21.653 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-14.23:16:21.719 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-14.23:16:24.551 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-14.23:16:24.649 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 8.585 seconds (JVM running for 9.881)
+26-07-14.23:16:25.206 [main            ] INFO  MarketTradeController  - 营销交易锁单:hth LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","outTradeNo":"808498221354","source":"s01","userId":"hth"}
+26-07-14.23:16:25.239 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-14.23:16:25.505 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-14.23:16:25.564 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:hth requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth"}
+26-07-14.23:16:25.593 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:hth requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth"}
+26-07-14.23:16:25.600 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:hth requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth"}
+26-07-14.23:16:25.663 [main            ] INFO  MarketTradeController  - 交易锁单记录(新):hth marketPayOrderEntity:{"deductionPrice":20.00,"orderId":"E3VFDCMC4crU","teamId":"KJr8ozCo","tradeOrderStatusEnumVO":"CREATE"}
+26-07-14.23:16:25.670 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","outTradeNo":"808498221354","source":"s01","userId":"hth"} res:{"code":"0000","data":{"deductionPrice":20.00,"orderId":"E3VFDCMC4crU","tradeOrderStatus":0},"info":"成功"}
+26-07-14.23:16:25.699 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-14.23:16:25.716 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
