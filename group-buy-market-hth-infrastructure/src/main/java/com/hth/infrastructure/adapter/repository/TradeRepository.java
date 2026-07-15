@@ -15,6 +15,7 @@ import com.hth.infrastructure.dao.po.GroupBuyActivity;
 import com.hth.infrastructure.dao.po.GroupBuyOrder;
 import com.hth.infrastructure.dao.po.GroupBuyOrderList;
 import com.hth.infrastructure.dao.po.NotifyTask;
+import com.hth.infrastructure.dcc.DCCService;
 import com.hth.types.common.Constants;
 import com.hth.types.enums.ActivityStatusEnumVO;
 import com.hth.types.enums.GroupBuyOrderEnumVO;
@@ -27,6 +28,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -40,6 +43,8 @@ public class TradeRepository implements ITradeRepository {
     private IGroupBuyActivityDao groupBuyActivityDao;
     @Resource
     private INotifyTaskDao notifyTaskDao;
+    @Resource
+    private DCCService dccService;
     @Override
     public MarketPayOrderEntity queryNoPayMarketPayOrderByOutTradeNo(String userId, String outTradeNo) {
         GroupBuyOrderList groupBuyOrderListReq = new GroupBuyOrderList();
@@ -77,6 +82,7 @@ public class TradeRepository implements ITradeRepository {
         PayActivityEntity payActivityEntity = groupBuyOrderAggregate.getPayActivityEntity();
         UserEntity userEntity = groupBuyOrderAggregate.getUserEntity();
         PayDiscountEntity payDiscountEntity = groupBuyOrderAggregate.getPayDiscountEntity();
+        Integer validTime = groupBuyOrderAggregate.getValidTime();
         //用户参与活动的次数
         Integer userTakeOrderCount = groupBuyOrderAggregate.getUserTakeOrderCount();
         // 判断是否有团 - teamId 为空 - 新团、为不空 - 老团
@@ -84,6 +90,11 @@ public class TradeRepository implements ITradeRepository {
         if(StringUtils.isBlank(teamId)){
             teamId = RandomStringUtils.randomAlphanumeric(8);
             //构建拼团订单
+            Calendar calendar = Calendar.getInstance();
+            Date validStartTime = new Date();
+            calendar.setTime(validStartTime);
+            calendar.add(Calendar.MINUTE, validTime);
+            Date validEndTime = calendar.getTime();
             GroupBuyOrder groupBuyOrder = GroupBuyOrder.builder()
                     .teamId(teamId)
                     .activityId(payActivityEntity.getActivityId())
@@ -95,8 +106,8 @@ public class TradeRepository implements ITradeRepository {
                     .targetCount(payActivityEntity.getTargetCount())
                     .completeCount(0)
                     .lockCount(1)
-                    .validStartTime(payActivityEntity.getStartTime())  // 拼团开始时间
-                    .validEndTime(payActivityEntity.getEndTime())      // 拼团结束时间
+                    .validStartTime(validStartTime)  // 拼团开始时间
+                    .validEndTime(validEndTime)      // 拼团结束时间
                     .notifyType("HTTP")    // 回调类型，默认为 HTTP
                     .notifyUrl("")         // 回调地址，可为空字符串
                     .build();
@@ -181,13 +192,16 @@ public class TradeRepository implements ITradeRepository {
         if (groupBuyOrder == null) {
             return null;  // 或者抛出异常
         }
+        Integer status = groupBuyOrder.getStatus();
         return GroupBuyTeamEntity.builder()
                 .teamId(groupBuyOrder.getTeamId())
                 .activityId(groupBuyOrder.getActivityId())
                 .targetCount(groupBuyOrder.getTargetCount())
                 .completeCount(groupBuyOrder.getCompleteCount())
                 .lockCount(groupBuyOrder.getLockCount())
-                .status(GroupBuyOrderEnumVO.valueOf(groupBuyOrder.getStatus()))
+                .status(null == status ? GroupBuyOrderEnumVO.PROGRESS : GroupBuyOrderEnumVO.valueOf(status))
+                .validStartTime(groupBuyOrder.getValidStartTime())
+                .validEndTime(groupBuyOrder.getValidEndTime())
                 .build();
 
     }
@@ -214,7 +228,9 @@ public class TradeRepository implements ITradeRepository {
             throw new AppException(ResponseCode.UPDATE_ZERO.getCode());
         }
         // 3. 更新拼团完成状态
-        if(groupBuyTeamEntity.getTargetCount() - groupBuyTeamEntity.getCompleteCount() == 1){
+        Integer targetCount = groupBuyTeamEntity.getTargetCount();
+        Integer completeCount = groupBuyTeamEntity.getCompleteCount();
+        if(null != targetCount && null != completeCount && targetCount - completeCount == 1){
             int updateOrderStatusCount = groupBuyOrderDao.updateOrderStatus2COMPLETE(teamId);
             if (updateOrderStatusCount != 1){
                 throw new AppException(ResponseCode.UPDATE_ZERO.getCode());
@@ -239,5 +255,18 @@ public class TradeRepository implements ITradeRepository {
             notifyTaskDao.insert(notifyTask);
         }
 
+    }
+
+    //判断SC是否在黑名单里
+    @Override
+    public boolean isSCBlackIntercept(String source, String channel) {
+        return dccService.isSCBlackIntercept(source,channel);
+    }
+
+    //通过活动ID查询活动拼团有效时间
+    @Override
+    public Integer queryActivityValidTimeByActivityId(Long activityId) {
+        GroupBuyActivity groupBuyActivity = groupBuyActivityDao.queryGroupBuyActivityByActivityId(activityId);
+        return groupBuyActivity.getValidTime();
     }
 }

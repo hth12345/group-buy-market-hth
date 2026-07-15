@@ -2,9 +2,9 @@ package com.hth.domain.trade.service.lock.filter;
 
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.entity.GroupBuyActivityEntity;
-import com.hth.domain.trade.model.entity.TradeRuleCommandEntity;
-import com.hth.domain.trade.model.entity.TradeRuleFilterBackEntity;
-import com.hth.domain.trade.service.lock.factory.TradeRuleFilterFactory;
+import com.hth.domain.trade.model.entity.TradeLockRuleCommandEntity;
+import com.hth.domain.trade.model.entity.TradeLockRuleFilterBackEntity;
+import com.hth.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
 import com.hth.types.design.framework.link.model2.handler.ILogicHandler;
 import com.hth.types.enums.ActivityStatusEnumVO;
 import com.hth.types.enums.ResponseCode;
@@ -17,12 +17,12 @@ import java.util.Date;
 
 @Slf4j
 @Service
-public class ActivityUsabilityRuleFilter implements ILogicHandler<TradeRuleCommandEntity, TradeRuleFilterFactory.DynamicContext, TradeRuleFilterBackEntity> {
+public class ActivityUsabilityRuleFilter implements ILogicHandler<TradeLockRuleCommandEntity, TradeLockRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> {
 
     @Resource
     private ITradeRepository repository;
     @Override
-    public TradeRuleFilterBackEntity apply(TradeRuleCommandEntity requestParameter, TradeRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
+    public TradeLockRuleFilterBackEntity apply(TradeLockRuleCommandEntity requestParameter, TradeLockRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
         long activityId = requestParameter.getActivityId();
         //查询拼团活动
         GroupBuyActivityEntity groupBuyActivityEntity = repository.queryGroupBuyActivityByActivityId(activityId);
