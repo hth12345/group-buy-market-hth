@@ -28,10 +28,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Repository
 public class TradeRepository implements ITradeRepository {
@@ -109,7 +106,7 @@ public class TradeRepository implements ITradeRepository {
                     .validStartTime(validStartTime)  // 拼团开始时间
                     .validEndTime(validEndTime)      // 拼团结束时间
                     .notifyType("HTTP")    // 回调类型，默认为 HTTP
-                    .notifyUrl("")         // 回调地址，可为空字符串
+                    .notifyUrl(payDiscountEntity.getNotifyUrl())         // 回调地址，可为空字符串
                     .build();
             // 写入记录
             groupBuyOrderDao.insert(groupBuyOrder);
@@ -202,6 +199,7 @@ public class TradeRepository implements ITradeRepository {
                 .status(null == status ? GroupBuyOrderEnumVO.PROGRESS : GroupBuyOrderEnumVO.valueOf(status))
                 .validStartTime(groupBuyOrder.getValidStartTime())
                 .validEndTime(groupBuyOrder.getValidEndTime())
+                .notifyUrl(groupBuyOrder.getNotifyUrl())
                 .build();
 
     }
@@ -209,7 +207,7 @@ public class TradeRepository implements ITradeRepository {
     //拼团交易结算
     @Override
     @Transactional(timeout = 500)
-    public void settlementMarketPayOrder(GroupBuyTeamSettlementAggregate groupBuyTeamSettlementAggregate) {
+    public boolean settlementMarketPayOrder(GroupBuyTeamSettlementAggregate groupBuyTeamSettlementAggregate) {
         UserEntity userEntity = groupBuyTeamSettlementAggregate.getUserEntity();
         GroupBuyTeamEntity groupBuyTeamEntity = groupBuyTeamSettlementAggregate.getGroupBuyTeamEntity();
         TradePaySuccessEntity tradePaySuccessEntity = groupBuyTeamSettlementAggregate.getTradePaySuccessEntity();
@@ -217,16 +215,20 @@ public class TradeRepository implements ITradeRepository {
         GroupBuyOrderList groupBuyOrderListReq = new GroupBuyOrderList();
         groupBuyOrderListReq.setUserId(userEntity.getUserId());
         groupBuyOrderListReq.setOutTradeNo(tradePaySuccessEntity.getOutTradeNo());
+        groupBuyOrderListReq.setOutTradeTime(tradePaySuccessEntity.getOutTradeTime());
+
         int updateOrderListStatusCount = groupBuyOrderListDao.updateOrderStatus2COMPLETE(groupBuyOrderListReq);
         if (updateOrderListStatusCount != 1){
             throw new AppException(ResponseCode.UPDATE_ZERO.getCode());
         }
+
         // 2. 更新拼团达成数量
         String teamId = groupBuyTeamEntity.getTeamId();
         int updateAddCount = groupBuyOrderDao.updateAddCompleteCount(teamId);
         if (updateAddCount != 1){
             throw new AppException(ResponseCode.UPDATE_ZERO.getCode());
         }
+
         // 3. 更新拼团完成状态
         Integer targetCount = groupBuyTeamEntity.getTargetCount();
         Integer completeCount = groupBuyTeamEntity.getCompleteCount();
@@ -235,15 +237,17 @@ public class TradeRepository implements ITradeRepository {
             if (updateOrderStatusCount != 1){
                 throw new AppException(ResponseCode.UPDATE_ZERO.getCode());
             }
+
             // 查询拼团交易完成外部单号列表
             List<String> outTradeNoList = groupBuyOrderListDao.queryGroupBuyCompleteOrderOutTradeNoListByTeamId(teamId);
+
             // 拼团完成写入回调任务记录
             NotifyTask notifyTask = new NotifyTask();
             notifyTask.setActivityId(groupBuyTeamEntity.getActivityId());
             notifyTask.setTeamId(groupBuyTeamEntity.getTeamId());
             notifyTask.setNotifyCategory("trade_unpaid2refund");  // 添加：回调种类
             notifyTask.setNotifyType("HTTP");                     // 添加：回调类型
-            notifyTask.setNotifyUrl("暂无");
+            notifyTask.setNotifyUrl(groupBuyTeamEntity.getNotifyUrl());
             notifyTask.setNotifyCount(0);
             notifyTask.setNotifyStatus(0);
             notifyTask.setUuid(java.util.UUID.randomUUID().toString());
@@ -253,8 +257,11 @@ public class TradeRepository implements ITradeRepository {
             }}));
 
             notifyTaskDao.insert(notifyTask);
+
+            return true;
         }
 
+        return false;
     }
 
     //判断SC是否在黑名单里
@@ -268,5 +275,64 @@ public class TradeRepository implements ITradeRepository {
     public Integer queryActivityValidTimeByActivityId(Long activityId) {
         GroupBuyActivity groupBuyActivity = groupBuyActivityDao.queryGroupBuyActivityByActivityId(activityId);
         return groupBuyActivity.getValidTime();
+    }
+
+    @Override
+    public List<NotifyTaskEntity> queryUnExecutedNotifyTaskList() {
+        List<NotifyTask> notifyTaskList = notifyTaskDao.queryUnExecutedNotifyTaskList();
+        if (notifyTaskList.isEmpty()) return new ArrayList<>();
+
+        List<NotifyTaskEntity> notifyTaskEntities = new ArrayList<>();
+        for (NotifyTask notifyTask : notifyTaskList) {
+
+            NotifyTaskEntity notifyTaskEntity = NotifyTaskEntity.builder()
+                    .teamId(notifyTask.getTeamId())
+                    .notifyUrl(notifyTask.getNotifyUrl())
+                    .notifyCount(notifyTask.getNotifyCount())
+                    .parameterJson(notifyTask.getParameterJson())
+                    .uuid(notifyTask.getUuid())
+                    .build();
+
+            notifyTaskEntities.add(notifyTaskEntity);
+        }
+
+        return notifyTaskEntities;
+    }
+
+    @Override
+    public List<NotifyTaskEntity> queryUnExecutedNotifyTaskList(String teamId) {
+        NotifyTask notifyTask = notifyTaskDao.queryUnExecutedNotifyTaskByTeamId(teamId);
+        if (null == notifyTask) return new ArrayList<>();
+        return Collections.singletonList(NotifyTaskEntity.builder()
+                .teamId(notifyTask.getTeamId())
+                .notifyUrl(notifyTask.getNotifyUrl())
+                .notifyCount(notifyTask.getNotifyCount())
+                .parameterJson(notifyTask.getParameterJson())
+                .uuid(notifyTask.getUuid())
+                .build());
+    }
+
+    @Override
+    public int updateNotifyTaskStatusSuccess(NotifyTaskEntity notifyTaskEntity) {
+        NotifyTask notifyTask = new NotifyTask();
+        notifyTask.setTeamId(notifyTaskEntity.getTeamId());
+        notifyTask.setUuid(notifyTaskEntity.getUuid());
+        return notifyTaskDao.updateNotifyTaskStatusSuccess(notifyTask);
+    }
+
+    @Override
+    public int updateNotifyTaskStatusError(NotifyTaskEntity notifyTaskEntity) {
+        NotifyTask notifyTask = new NotifyTask();
+        notifyTask.setTeamId(notifyTaskEntity.getTeamId());
+        notifyTask.setUuid(notifyTaskEntity.getUuid());
+        return notifyTaskDao.updateNotifyTaskStatusError(notifyTask);
+    }
+
+    @Override
+    public int updateNotifyTaskStatusRetry(NotifyTaskEntity notifyTaskEntity) {
+        NotifyTask notifyTask = new NotifyTask();
+        notifyTask.setTeamId(notifyTaskEntity.getTeamId());
+        notifyTask.setUuid(notifyTaskEntity.getUuid());
+        return notifyTaskDao.updateNotifyTaskStatusRetry(notifyTask);
     }
 }
