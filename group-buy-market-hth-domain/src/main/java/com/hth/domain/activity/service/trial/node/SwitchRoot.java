@@ -35,9 +35,10 @@ public class SwitchRoot extends AbstractGroupBuyMarketSupport<MarketProductEntit
             throw new AppException(ResponseCode.E0004.getCode(),ResponseCode.E0004.getInfo());
         }
 
-        if(!activityRepository.whiteList(userId)){
+        //白名单
+        /*if(!activityRepository.whiteList(userId)){
             throw new AppException(ResponseCode.E0005.getCode(),ResponseCode.E0005.getInfo());
-        }
+        }*/
         return router(requestParameter, dynamicContext);
     }
 

@@ -1,8 +1,12 @@
 package com.hth.domain.activity.adapter.repository;
 
+import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
 import com.hth.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import com.hth.domain.activity.model.valobj.SCSkuActivityVO;
 import com.hth.domain.activity.model.valobj.SkuVO;
+import com.hth.domain.activity.model.valobj.TeamStatisticVO;
+
+import java.util.List;
 
 public interface IActivityRepository {
 
@@ -19,4 +23,11 @@ public interface IActivityRepository {
     boolean cutRange(String userId);
 
     boolean whiteList(String userId);
+
+    List<UserGroupBuyOrderDetailEntity> queryInProgressUserGroupBuyOrderDetailListByOwner(Long activityId, String userId, int ownerCount);
+
+    List<UserGroupBuyOrderDetailEntity> queryInProgressUserGroupBuyOrderDetailListByRandom(Long activityId, String userId, int randomCount);
+
+    TeamStatisticVO queryTeamStatisticByActivityId(Long activityId);
+
 }
