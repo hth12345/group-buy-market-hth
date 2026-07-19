@@ -2,6 +2,10 @@ package com.hth.domain.activity.service;
 
 import com.hth.domain.activity.model.entity.MarketProductEntity;
 import com.hth.domain.activity.model.entity.TrialBalanceEntity;
+import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
+import com.hth.domain.activity.model.valobj.TeamStatisticVO;
+
+import java.util.List;
 
 /**
  * @author Fuzhengwei bugstack.cn @小傅哥
@@ -12,4 +16,7 @@ public interface IIndexGroupBuyMarketService {
 
     TrialBalanceEntity indexMarketTrial(MarketProductEntity marketProductEntity) throws Exception;
 
+    List<UserGroupBuyOrderDetailEntity> queryInProgressUserGroupBuyOrderDetailList(Long activityId, String userId, int ownerCount, int randomCount);
+
+    TeamStatisticVO queryTeamStatisticByActivityId(Long activityId);
 }
