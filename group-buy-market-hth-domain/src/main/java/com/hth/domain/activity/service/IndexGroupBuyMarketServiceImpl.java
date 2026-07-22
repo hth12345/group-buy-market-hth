@@ -7,7 +7,6 @@ import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
 import com.hth.domain.activity.model.valobj.TeamStatisticVO;
 import com.hth.domain.activity.service.trial.factory.DefaultActivityStrategyFactory;
 import com.hth.types.design.framework.tree.StrategyHandler;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -20,7 +19,6 @@ import java.util.List;
  * @description 首页营销服务
  * @create 2024-12-14 14:33
  */
-@Slf4j
 @Service
 public class IndexGroupBuyMarketServiceImpl implements IIndexGroupBuyMarketService {
 
@@ -47,7 +45,6 @@ public class IndexGroupBuyMarketServiceImpl implements IIndexGroupBuyMarketServi
         // 查询个人拼团数据
         if(ownerCount != 0){
             List<UserGroupBuyOrderDetailEntity> ownerList = repository.queryInProgressUserGroupBuyOrderDetailListByOwner(activityId, userId, ownerCount);
-            log.info("【调试】owner查询 activityId:{} userId:{} result:{}", activityId, userId, null == ownerList ? "null" : ownerList.size());
             if (null != ownerList && !ownerList.isEmpty()){
                 unionAllList.addAll(ownerList);
             }
@@ -56,7 +53,6 @@ public class IndexGroupBuyMarketServiceImpl implements IIndexGroupBuyMarketServi
         // 查询其他非个人拼团
         if (0 != randomCount) {
             List<UserGroupBuyOrderDetailEntity> randomList = repository.queryInProgressUserGroupBuyOrderDetailListByRandom(activityId, userId, randomCount);
-            log.info("【调试】random查询 activityId:{} userId:{} result:{}", activityId, userId, null == randomList ? "null" : randomList.size());
             if (null != randomList && !randomList.isEmpty()){
                 unionAllList.addAll(randomList);
             }
