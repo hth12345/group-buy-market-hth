@@ -8,7 +8,6 @@ import com.hth.infrastructure.dao.po.*;
 import com.hth.infrastructure.dcc.DCCService;
 import com.hth.infrastructure.redis.IRedisService;
 import lombok.Builder;
-import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RBitSet;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +16,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Builder
-@Slf4j
 @Repository
 public class ActivityRepository implements IActivityRepository {
     @Resource
@@ -139,7 +137,6 @@ public class ActivityRepository implements IActivityRepository {
         groupBuyOrderListReq.setUserId(userId);
         groupBuyOrderListReq.setCount(ownerCount);
         List<GroupBuyOrderList> groupBuyOrderLists = groupBuyOrderListDao.queryInProgressUserGroupBuyOrderDetailListByUserId(groupBuyOrderListReq);
-        log.info("【调试-owner】第1步 list size:{}", null == groupBuyOrderLists ? "null" : groupBuyOrderLists.size());
         if (null == groupBuyOrderLists || groupBuyOrderLists.isEmpty()) return null;
 
         // 2. 过滤队伍获取 TeamId
@@ -188,7 +185,6 @@ public class ActivityRepository implements IActivityRepository {
         groupBuyOrderListReq.setUserId(userId);
         groupBuyOrderListReq.setCount(randomCount * 2); // 查询2倍的量，之后其中 randomCount 数量
         List<GroupBuyOrderList> groupBuyOrderLists = groupBuyOrderListDao.queryInProgressUserGroupBuyOrderDetailListByRandom(groupBuyOrderListReq);
-        log.info("【调试-random】第1步 list size:{}", null == groupBuyOrderLists ? "null" : groupBuyOrderLists.size());
         if (null == groupBuyOrderLists || groupBuyOrderLists.isEmpty()) return null;
 
         // 判断总量是否大于 randomCount
