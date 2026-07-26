@@ -20,6 +20,14 @@ public class NotifyTaskEntity {
      */
     private String notifyUrl;
     /**
+     * 回调类型
+     */
+    private String notifyType;
+    /**
+     * 回调消息
+     */
+    private String notifyMQ;
+    /**
      * 回调次数
      */
     private Integer notifyCount;
