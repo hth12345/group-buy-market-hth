@@ -40,4 +40,7 @@ public interface ITradeRepository {
     int updateNotifyTaskStatusRetry(NotifyTaskEntity notifyTaskEntity);
 
 
+    boolean occupyTeamStock(String teamStockKey, String recoveryTeamStockKey, Integer target, Integer validTime);
+
+    void recoveryTeamStock(String recoveryTeamStockKey, Integer validTime);
 }
