@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class TradeLockRuleCommandEntity {
     private String userId;
     private long activityId;
+    private String teamId;
 }

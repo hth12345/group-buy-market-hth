@@ -276,3 +276,146 @@ java.lang.NullPointerException: Name is null
 26-07-25.15:54:29.453 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
 26-07-25.15:54:29.490 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
 26-07-25.15:54:29.514 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-26.16:19:40.584 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 21588 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-26.16:19:40.585 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-07-26.16:19:42.051 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-26.16:19:42.055 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-26.16:19:42.115 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 0 Redis repository interfaces.
+26-07-26.16:19:42.801 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$1cfddf4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:19:43.430 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:19:44.936 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-26.16:19:46.321 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:19:46.368 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:19:46.431 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:19:52.351 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-26.16:19:52.473 [main            ] INFO  CachingConnectionFactory - Attempting to connect to: [127.0.0.1:5672]
+26-07-26.16:19:52.562 [main            ] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#7bfcc108:0/SimpleConnection@63541cd4 [delegate=amqp://admin@127.0.0.1:5672/, localPort= 64412]
+26-07-26.16:19:52.666 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 12.678 seconds (JVM running for 14.932)
+26-07-26.16:19:53.338 [main            ] INFO  MarketTradeController  - 营销交易锁单:hth15 LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"182603938599","source":"s01","userId":"hth15"}
+26-07-26.16:19:53.378 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-26.16:19:53.602 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-26.16:19:53.673 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:hth15 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth15"}
+26-07-26.16:19:53.713 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:hth15 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth15"}
+26-07-26.16:19:53.719 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:hth15 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth15"}
+26-07-26.16:20:02.201 [main            ] INFO  ActivityUsabilityRuleFilter - 交易规则过滤-活动的可用性校验hth15 activityId:100123
+26-07-26.16:20:02.211 [main            ] INFO  UserTakeLimitRuleFilter - 交易规则过滤-用户参与次数校验hth15 activityId:100123
+26-07-26.16:20:02.221 [main            ] INFO  TeamStockOccupyRuleFilter - 交易规则过滤-组队库存校验hth15 activityId:100123
+26-07-26.16:20:02.294 [main            ] INFO  MarketTradeController  - 交易锁单记录(新):hth15 marketPayOrderEntity:{"deductionPrice":20.00,"orderId":"a7tNLECAAE9S","originalPrice":100.00,"payPrice":80.00,"teamId":"L2jQksgH","tradeOrderStatusEnumVO":"CREATE"}
+26-07-26.16:20:02.302 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"182603938599","source":"s01","userId":"hth15"} res:{"code":"0000","data":{"deductionPrice":20.00,"orderId":"a7tNLECAAE9S","originalPrice":100.00,"payPrice":80.00,"tradeOrderStatus":0},"info":"成功"}
+26-07-26.16:20:02.324 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-07-26.16:20:03.218 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-07-26.16:20:03.222 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-07-26.16:20:03.238 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-26.16:20:03.251 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-26.16:20:11.716 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 27824 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-26.16:20:11.719 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-07-26.16:20:13.149 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-26.16:20:13.154 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-26.16:20:13.216 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 0 Redis repository interfaces.
+26-07-26.16:20:13.768 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$aeb792f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:20:14.228 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:20:15.695 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-26.16:20:17.118 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:20:17.146 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:20:17.212 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:20:23.082 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-26.16:20:23.195 [main            ] INFO  CachingConnectionFactory - Attempting to connect to: [127.0.0.1:5672]
+26-07-26.16:20:23.272 [main            ] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#40db6136:0/SimpleConnection@99f75e4 [delegate=amqp://admin@127.0.0.1:5672/, localPort= 56549]
+26-07-26.16:20:23.356 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 12.303 seconds (JVM running for 14.007)
+26-07-26.16:20:23.364 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-07-26.16:20:36.599 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 7228 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-26.16:20:36.601 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-07-26.16:20:37.860 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-26.16:20:37.864 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-26.16:20:37.915 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 0 Redis repository interfaces.
+26-07-26.16:20:38.471 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$16f71745] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:20:39.003 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:20:40.522 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-26.16:20:41.999 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:20:42.025 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:20:42.090 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:20:47.542 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-26.16:20:47.662 [main            ] INFO  CachingConnectionFactory - Attempting to connect to: [127.0.0.1:5672]
+26-07-26.16:20:47.748 [main            ] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#30437e9c:0/SimpleConnection@5c9168c3 [delegate=amqp://admin@127.0.0.1:5672/, localPort= 49748]
+26-07-26.16:20:47.847 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 11.852 seconds (JVM running for 13.37)
+26-07-26.16:20:48.373 [main            ] INFO  MarketTradeController  - 营销交易锁单:hth16 LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"071297407879","source":"s01","userId":"hth16"}
+26-07-26.16:20:48.408 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-26.16:20:48.623 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-26.16:20:48.685 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:hth16 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth16"}
+26-07-26.16:20:48.718 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:hth16 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth16"}
+26-07-26.16:20:48.725 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:hth16 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth16"}
+26-07-26.16:21:05.574 [main            ] INFO  ActivityUsabilityRuleFilter - 交易规则过滤-活动的可用性校验hth16 activityId:100123
+26-07-26.16:21:05.584 [main            ] INFO  UserTakeLimitRuleFilter - 交易规则过滤-用户参与次数校验hth16 activityId:100123
+26-07-26.16:21:05.591 [main            ] INFO  TeamStockOccupyRuleFilter - 交易规则过滤-组队库存校验hth16 activityId:100123
+26-07-26.16:21:05.617 [scheduling-1    ] INFO  TradeSettlementOrderService - 拼团交易-执行结算通知任务
+26-07-26.16:21:05.639 [scheduling-1    ] INFO  GroupBuyNotifyJob      - 定时任务，回调通知拼团完结任务 result:{"retryCount":0,"successCount":0,"waitCount":0,"errorCount":0}
+26-07-26.16:21:05.652 [main            ] INFO  MarketTradeController  - 交易锁单记录(新):hth16 marketPayOrderEntity:{"deductionPrice":20.00,"orderId":"L8DumiOMPWCT","originalPrice":100.00,"payPrice":80.00,"teamId":"1yxNm8if","tradeOrderStatusEnumVO":"CREATE"}
+26-07-26.16:21:05.661 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"071297407879","source":"s01","userId":"hth16"} res:{"code":"0000","data":{"deductionPrice":20.00,"orderId":"L8DumiOMPWCT","originalPrice":100.00,"payPrice":80.00,"tradeOrderStatus":0},"info":"成功"}
+26-07-26.16:21:05.692 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-07-26.16:21:06.589 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-07-26.16:21:06.593 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-07-26.16:21:06.604 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-26.16:21:06.623 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-26.16:21:23.740 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 33744 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-26.16:21:23.741 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-07-26.16:21:25.085 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-26.16:21:25.089 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-26.16:21:25.143 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 0 Redis repository interfaces.
+26-07-26.16:21:25.657 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$5d274639] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:21:26.113 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:21:27.535 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-26.16:21:28.906 [redisson-netty-1-5] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:21:28.933 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:21:28.993 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:21:34.511 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-26.16:21:34.630 [main            ] INFO  CachingConnectionFactory - Attempting to connect to: [127.0.0.1:5672]
+26-07-26.16:21:34.718 [main            ] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#5d98364c:0/SimpleConnection@7d49fe37 [delegate=amqp://admin@127.0.0.1:5672/, localPort= 49870]
+26-07-26.16:21:34.812 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 11.697 seconds (JVM running for 13.162)
+26-07-26.16:21:35.333 [main            ] INFO  MarketTradeController  - 营销交易锁单:hth17 LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"486525585311","source":"s01","userId":"hth17"}
+26-07-26.16:21:35.377 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-26.16:21:35.601 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-26.16:21:35.663 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:hth17 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth17"}
+26-07-26.16:21:35.692 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:hth17 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth17"}
+26-07-26.16:21:35.699 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:hth17 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth17"}
+26-07-26.16:21:52.153 [HikariPool-1 housekeeper] WARN  HikariPool             - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=46s551ms879µs500ns).
+26-07-26.16:22:17.932 [main            ] INFO  ActivityUsabilityRuleFilter - 交易规则过滤-活动的可用性校验hth17 activityId:100123
+26-07-26.16:22:17.951 [main            ] INFO  UserTakeLimitRuleFilter - 交易规则过滤-用户参与次数校验hth17 activityId:100123
+26-07-26.16:22:17.969 [main            ] INFO  TeamStockOccupyRuleFilter - 交易规则过滤-组队库存校验hth17 activityId:100123
+26-07-26.16:22:45.206 [main            ] INFO  MarketTradeController  - 交易锁单记录(新):hth17 marketPayOrderEntity:{"deductionPrice":20.00,"orderId":"tFpkTSGuF747","originalPrice":100.00,"payPrice":80.00,"teamId":"vqhhlAV1","tradeOrderStatusEnumVO":"CREATE"}
+26-07-26.16:22:45.209 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-07-26.16:22:45.215 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"486525585311","source":"s01","userId":"hth17"} res:{"code":"0000","data":{"deductionPrice":20.00,"orderId":"tFpkTSGuF747","originalPrice":100.00,"payPrice":80.00,"tradeOrderStatus":0},"info":"成功"}
+26-07-26.16:22:46.140 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-07-26.16:22:46.145 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-07-26.16:22:46.162 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-26.16:22:46.178 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-07-26.16:24:18.677 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 9720 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-07-26.16:24:18.679 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-07-26.16:24:19.943 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-07-26.16:24:19.947 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-07-26.16:24:19.997 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 0 Redis repository interfaces.
+26-07-26.16:24:20.466 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$cb3a55b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:24:20.924 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:24:22.347 [main            ] INFO  Version                - Redisson 3.26.0
+26-07-26.16:24:23.705 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:24:23.732 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-07-26.16:24:23.801 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-07-26.16:24:29.008 [main            ] INFO  EndpointLinksResolver  - Exposing 1 endpoint(s) beneath base path '/actuator'
+26-07-26.16:24:29.125 [main            ] INFO  CachingConnectionFactory - Attempting to connect to: [127.0.0.1:5672]
+26-07-26.16:24:29.205 [main            ] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#46ab4efc:0/SimpleConnection@3d4818e8 [delegate=amqp://admin@127.0.0.1:5672/, localPort= 51448]
+26-07-26.16:24:29.313 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 11.217 seconds (JVM running for 12.377)
+26-07-26.16:24:30.018 [main            ] INFO  MarketTradeController  - 营销交易锁单:hth18 LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"385980949141","source":"s01","userId":"hth18"}
+26-07-26.16:24:30.061 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-07-26.16:24:30.281 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-07-26.16:24:30.339 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:hth18 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth18"}
+26-07-26.16:24:30.365 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:hth18 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth18"}
+26-07-26.16:24:30.371 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:hth18 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth18"}
+26-07-26.16:24:30.377 [main            ] INFO  ActivityUsabilityRuleFilter - 交易规则过滤-活动的可用性校验hth18 activityId:100123
+26-07-26.16:24:30.383 [main            ] INFO  UserTakeLimitRuleFilter - 交易规则过滤-用户参与次数校验hth18 activityId:100123
+26-07-26.16:24:30.387 [main            ] INFO  TeamStockOccupyRuleFilter - 交易规则过滤-组队库存校验hth18 activityId:100123
+26-07-26.16:24:30.428 [main            ] INFO  MarketTradeController  - 交易锁单记录(新):hth18 marketPayOrderEntity:{"deductionPrice":20.00,"orderId":"aV8CkAZsOkNN","originalPrice":100.00,"payPrice":80.00,"teamId":"QEiis8Pb","tradeOrderStatusEnumVO":"CREATE"}
+26-07-26.16:24:30.435 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"385980949141","source":"s01","userId":"hth18"} res:{"code":"0000","data":{"deductionPrice":20.00,"orderId":"aV8CkAZsOkNN","originalPrice":100.00,"payPrice":80.00,"tradeOrderStatus":0},"info":"成功"}
+26-07-26.16:24:30.454 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-07-26.16:24:31.307 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-07-26.16:24:31.311 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-07-26.16:24:31.324 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-07-26.16:24:31.337 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.

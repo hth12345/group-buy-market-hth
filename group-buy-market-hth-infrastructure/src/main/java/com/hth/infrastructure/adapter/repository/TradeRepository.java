@@ -1,6 +1,7 @@
 package com.hth.infrastructure.adapter.repository;
 
 import com.alibaba.fastjson2.JSON;
+import com.esotericsoftware.minlog.Log;
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.aggregate.GroupBuyOrderAggregate;
 import com.hth.domain.trade.model.aggregate.GroupBuyTeamSettlementAggregate;
@@ -18,6 +19,7 @@ import com.hth.infrastructure.dao.po.GroupBuyOrder;
 import com.hth.infrastructure.dao.po.GroupBuyOrderList;
 import com.hth.infrastructure.dao.po.NotifyTask;
 import com.hth.infrastructure.dcc.DCCService;
+import com.hth.infrastructure.redis.IRedisService;
 import com.hth.types.common.Constants;
 import com.hth.types.enums.ActivityStatusEnumVO;
 import com.hth.types.enums.GroupBuyOrderEnumVO;
@@ -25,6 +27,7 @@ import com.hth.types.enums.ResponseCode;
 import com.hth.types.exception.AppException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.redisson.api.RLock;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
@@ -32,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 @Repository
 public class TradeRepository implements ITradeRepository {
@@ -45,6 +49,8 @@ public class TradeRepository implements ITradeRepository {
     private INotifyTaskDao notifyTaskDao;
     @Resource
     private DCCService dccService;
+    @Resource
+    private IRedisService redisService;
     @Value("${spring.rabbitmq.config.producer.topic_team_success.routing_key}")
     private String topic_team_success;
     @Override
@@ -361,5 +367,28 @@ public class TradeRepository implements ITradeRepository {
         notifyTask.setTeamId(notifyTaskEntity.getTeamId());
         notifyTask.setUuid(notifyTaskEntity.getUuid());
         return notifyTaskDao.updateNotifyTaskStatusRetry(notifyTask);
+    }
+
+    @Override
+    public boolean occupyTeamStock(String teamStockKey, String recoveryTeamStockKey, Integer target, Integer validTime) {
+        Long recoverCount = redisService.getAtomicLong(recoveryTeamStockKey);
+        long occupy = redisService.incr(teamStockKey) + 1;
+        if(occupy > recoverCount + target){
+            redisService.setAtomicLong(teamStockKey,target);
+            return false;
+        }
+        String lockKey = teamStockKey + Constants.UNDERLINE + occupy;
+        // TODO 高效整洁
+        Boolean isLock = redisService.setNx(lockKey, validTime + 60, TimeUnit.MINUTES);
+        if(!isLock){
+            Log.info("组队库存加锁失败 {}",lockKey);
+        }
+        return isLock;
+    }
+
+    @Override
+    public void recoveryTeamStock(String recoveryTeamStockKey, Integer validTime) {
+        if(StringUtils.isBlank(recoveryTeamStockKey)) return;
+        redisService.incr(recoveryTeamStockKey);
     }
 }
