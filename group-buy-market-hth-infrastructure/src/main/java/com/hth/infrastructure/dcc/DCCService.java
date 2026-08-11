@@ -22,9 +22,13 @@ public class DCCService {
     @DCCValue("scBlacklist:s02c02")
     private String scBlacklist;
 
+    @DCCValue("cacheOpenSwitch:0")
+    private String cacheOpenSwitch;
+
     public boolean isDowngradeSwitch(){
         return "1".equals(downgradeSwitch);
     }
+
     public boolean isCutRange(String userId){
         int hashCode = Math.abs(userId.hashCode());
         int lastTwoDigits = hashCode % 100;
@@ -33,6 +37,7 @@ public class DCCService {
         }
         return false;
     }
+
     public boolean isWhiteList(String userId){
         return whiteList.contains(userId);
     }
@@ -40,5 +45,10 @@ public class DCCService {
     public boolean isSCBlackIntercept(String source, String channel) {
         List<String> list = Arrays.asList(scBlacklist.split(Constants.SPLIT));
         return list.contains(source + channel);
+    }
+
+    //默认开启走缓存
+    public boolean isCacheOpenSwitch(){
+        return "0".equals(cacheOpenSwitch);
     }
 }

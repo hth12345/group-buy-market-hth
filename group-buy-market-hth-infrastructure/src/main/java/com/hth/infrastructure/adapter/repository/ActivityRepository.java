@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Builder
 @Repository
-public class ActivityRepository implements IActivityRepository {
+public class ActivityRepository extends AbstractRepository implements IActivityRepository {
     @Resource
     private IGroupBuyActivityDao groupBuyActivityDao;
     @Resource
@@ -37,16 +37,14 @@ public class ActivityRepository implements IActivityRepository {
 
     public GroupBuyActivityDiscountVO queryGroupBuyActivityDiscountVO(long activityId) {
         // 根据活动id查询配置中最新的1个有效的活动
-        GroupBuyActivity groupBuyActivityRes = groupBuyActivityDao.queryValidGroupBuyActivityId(activityId);
-        if(groupBuyActivityRes == null) {
-            return null;
-        }
-        String discountId = groupBuyActivityRes.getDiscountId();
+        String groupBuyActivityCacheKey = GroupBuyActivity.cacheRedisKey(activityId);
+        GroupBuyActivity groupBuyActivityRes = getFromCacheOrDb(groupBuyActivityCacheKey, ()->groupBuyActivityDao.queryValidGroupBuyActivityId(activityId),20000L);
 
-        GroupBuyDiscount groupBuyDiscountRes = groupBuyDiscountDao.queryGroupBuyActivityDiscountByDiscountId(discountId);
-        if(groupBuyDiscountRes == null) {
-            return null;
-        }
+        // 根据折扣id获取对应折扣
+        String discountId = groupBuyActivityRes.getDiscountId();
+        String groupBuyDiscountCacheKey = GroupBuyDiscount.cacheRedisKey(discountId);
+        GroupBuyDiscount groupBuyDiscountRes = getFromCacheOrDb(groupBuyDiscountCacheKey, () -> groupBuyDiscountDao.queryGroupBuyActivityDiscountByDiscountId(discountId), 20000L);
+
         GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount = GroupBuyActivityDiscountVO.GroupBuyDiscount.builder()
                 .discountName(groupBuyDiscountRes.getDiscountName())
                 .discountDesc(groupBuyDiscountRes.getDiscountDesc())
