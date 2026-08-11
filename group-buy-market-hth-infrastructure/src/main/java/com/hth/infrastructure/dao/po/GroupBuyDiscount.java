@@ -69,7 +69,7 @@ public class GroupBuyDiscount {
     private Date updateTime;
 
     public static String cacheRedisKey(String discountId) {
-        return "group_buy_market_cn.bugstack.infrastructure.dao.po.GroupBuyDiscount_" + discountId;
+        return "group_buy_market_com.hth.infrastructure.dao.po.GroupBuyDiscount_" + discountId;
     }
 
 }
