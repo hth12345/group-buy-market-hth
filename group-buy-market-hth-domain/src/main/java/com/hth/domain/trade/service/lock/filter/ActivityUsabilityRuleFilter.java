@@ -1,11 +1,11 @@
 package com.hth.domain.trade.service.lock.filter;
 
+import cn.bugstack.wrench.design.framework.link.model2.handler.ILogicHandler;
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.entity.GroupBuyActivityEntity;
 import com.hth.domain.trade.model.entity.TradeLockRuleCommandEntity;
 import com.hth.domain.trade.model.entity.TradeLockRuleFilterBackEntity;
 import com.hth.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
-import com.hth.types.design.framework.link.model2.handler.ILogicHandler;
 import com.hth.types.enums.ActivityStatusEnumVO;
 import com.hth.types.enums.ResponseCode;
 import com.hth.types.exception.AppException;

@@ -1,8 +1,8 @@
 package com.hth.test.types;
 
+import cn.bugstack.wrench.design.framework.link.model2.chain.BusinessLinkedList;
 import com.hth.test.types.rule02.factory.Rule02TradeRuleFactory;
 import com.hth.test.types.rule02.logic.XxxResponse;
-import com.hth.types.design.framework.link.model2.chain.BusinessLinkedList;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;

@@ -1,12 +1,12 @@
 package com.hth.domain.activity.service;
 
+import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
 import com.hth.domain.activity.adapter.repository.IActivityRepository;
 import com.hth.domain.activity.model.entity.MarketProductEntity;
 import com.hth.domain.activity.model.entity.TrialBalanceEntity;
 import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
 import com.hth.domain.activity.model.valobj.TeamStatisticVO;
 import com.hth.domain.activity.service.trial.factory.DefaultActivityStrategyFactory;
-import com.hth.types.design.framework.tree.StrategyHandler;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

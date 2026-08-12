@@ -1,12 +1,12 @@
 package com.hth.domain.trade.service.lock;
 
+import cn.bugstack.wrench.design.framework.link.model2.chain.BusinessLinkedList;
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.aggregate.GroupBuyOrderAggregate;
 import com.hth.domain.trade.model.entity.*;
 import com.hth.domain.trade.model.valobj.GroupBuyProgressVO;
 import com.hth.domain.trade.service.ITradeLockOrderService;
 import com.hth.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
-import com.hth.types.design.framework.link.model2.chain.BusinessLinkedList;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

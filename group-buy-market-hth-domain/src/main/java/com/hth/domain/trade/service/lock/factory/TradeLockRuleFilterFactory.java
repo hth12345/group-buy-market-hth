@@ -1,13 +1,13 @@
 package com.hth.domain.trade.service.lock.factory;
 
+import cn.bugstack.wrench.design.framework.link.model2.LinkArmory;
+import cn.bugstack.wrench.design.framework.link.model2.chain.BusinessLinkedList;
 import com.hth.domain.trade.model.entity.GroupBuyActivityEntity;
 import com.hth.domain.trade.model.entity.TradeLockRuleCommandEntity;
 import com.hth.domain.trade.model.entity.TradeLockRuleFilterBackEntity;
 import com.hth.domain.trade.service.lock.filter.ActivityUsabilityRuleFilter;
 import com.hth.domain.trade.service.lock.filter.TeamStockOccupyRuleFilter;
 import com.hth.domain.trade.service.lock.filter.UserTakeLimitRuleFilter;
-import com.hth.types.design.framework.link.model2.LinkArmory;
-import com.hth.types.design.framework.link.model2.chain.BusinessLinkedList;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,7 +27,7 @@ public class TradeLockRuleFilterFactory {
             UserTakeLimitRuleFilter userTakeLimitRuleFilter,
             TeamStockOccupyRuleFilter teamStockOccupyRuleFilter) {
         // 组装链
-        LinkArmory<TradeLockRuleCommandEntity, TradeLockRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> linkArmory =
+        LinkArmory<TradeLockRuleCommandEntity, DynamicContext, TradeLockRuleFilterBackEntity> linkArmory =
                 new LinkArmory<>("交易规则过滤链",
                         activityUsabilityRuleFilter,
                         userTakeLimitRuleFilter,

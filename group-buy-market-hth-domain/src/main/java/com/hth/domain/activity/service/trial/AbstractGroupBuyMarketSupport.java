@@ -1,11 +1,10 @@
 package com.hth.domain.activity.service.trial;
 
+import cn.bugstack.wrench.design.framework.tree.AbstractMultiThreadStrategyRouter;
 import com.hth.domain.activity.adapter.repository.IActivityRepository;
 import com.hth.domain.activity.model.entity.MarketProductEntity;
 import com.hth.domain.activity.model.entity.TrialBalanceEntity;
 import com.hth.domain.activity.service.trial.factory.DefaultActivityStrategyFactory;
-import com.hth.types.design.framework.tree.AbstractMultiThreadStrategyRouter;
-import com.hth.types.design.framework.tree.AbstractStrategyRouter;
 
 import javax.annotation.Resource;
 import java.util.concurrent.ExecutionException;
@@ -18,7 +17,7 @@ import java.util.concurrent.TimeoutException;
  */
 public abstract class AbstractGroupBuyMarketSupport<MarketProductEntity, DynamicContext, TrialBalanceEntity> extends AbstractMultiThreadStrategyRouter<com.hth.domain.activity.model.entity.MarketProductEntity, DefaultActivityStrategyFactory.DynamicContext, com.hth.domain.activity.model.entity.TrialBalanceEntity> {
 
-    protected long timeout = 500;
+    protected long timeout = 5000;
     @Resource
     protected IActivityRepository activityRepository;
     @Override
