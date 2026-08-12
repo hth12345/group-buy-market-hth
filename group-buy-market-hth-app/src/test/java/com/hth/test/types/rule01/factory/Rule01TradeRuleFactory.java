@@ -1,9 +1,9 @@
 package com.hth.test.types.rule01.factory;
 
+import cn.bugstack.wrench.design.framework.link.model1.ILogicLink;
 import com.hth.test.types.rule01.logic.RuleLogic101;
 import com.hth.test.types.rule01.logic.RuleLogic102;
 import com.hth.test.types.rule02.factory.Rule02TradeRuleFactory;
-import com.hth.types.design.framework.link.model1.ILogicLink;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

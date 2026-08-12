@@ -1,11 +1,11 @@
 package com.hth.domain.trade.service.settlement.filter;
 
+import cn.bugstack.wrench.design.framework.link.model2.handler.ILogicHandler;
 import com.hth.domain.trade.model.entity.GroupBuyTeamEntity;
 import com.hth.domain.trade.model.entity.MarketPayOrderEntity;
 import com.hth.domain.trade.model.entity.TradeSettlementRuleCommandEntity;
 import com.hth.domain.trade.model.entity.TradeSettlementRuleFilterBackEntity;
 import com.hth.domain.trade.service.settlement.factory.TradeSettlementRuleFilterFactory;
-import com.hth.types.design.framework.link.model2.handler.ILogicHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
