@@ -1,5 +1,6 @@
 package com.hth.trigger.http;
 
+import cn.bugstack.wrench.rate.limiter.types.annotations.RateLimiterAccessInterceptor;
 import com.alibaba.fastjson.JSON;
 import com.hth.api.IMarketIndexService;
 import com.hth.api.dto.GoodsMarketRequestDTO;
@@ -34,6 +35,7 @@ public class MarketIndexController implements IMarketIndexService {
      *
      * 拼团首页展示
      */
+    @RateLimiterAccessInterceptor(key = "userId", fallbackMethod = "queryGroupBuyMarketConfigFallBack", permitsPerSecond = 1.0d, blacklistCount = 1)
     @RequestMapping(value = "query_group_buy_market_config", method = RequestMethod.POST)
     @Override
     public Response<GoodsMarketResponseDTO> queryGroupBuyMarketConfig(@RequestBody GoodsMarketRequestDTO requestDTO) {
@@ -119,5 +121,11 @@ public class MarketIndexController implements IMarketIndexService {
                     .build();
         }
     }
-
+    public Response<GoodsMarketResponseDTO> queryGroupBuyMarketConfigFallBack(@RequestBody GoodsMarketRequestDTO requestDTO) {
+        log.error("查询拼团营销配置限流:{}", requestDTO.getUserId());
+        return Response.<GoodsMarketResponseDTO>builder()
+                .code(ResponseCode.RATE_LIMITER.getCode())
+                .info(ResponseCode.RATE_LIMITER.getInfo())
+                .build();
+    }
 }
