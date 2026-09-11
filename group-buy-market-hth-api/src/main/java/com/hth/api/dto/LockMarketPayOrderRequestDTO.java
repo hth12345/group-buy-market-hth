@@ -38,7 +38,7 @@ public class LockMarketPayOrderRequestDTO {
         NotifyConfigVO notifyConfigVO = new NotifyConfigVO();
         notifyConfigVO.setNotifyType("HTTP");
         notifyConfigVO.setNotifyUrl(notifyUrl);
-
+        this.notifyConfigVO = notifyConfigVO;
     }
 
     @Data
