@@ -100,7 +100,24 @@ services:
     volumes:
       - ./rabbitmq/enabled_plugins:/etc/rabbitmq/enabled_plugins
 
+  # Portainer https://www.portainer.io/ Docker 图形化管理工具
+  # 国内镜像加速源 https://daocloud.io/
+  portainer:
+    image: docker.m.daocloud.io/portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - my-network
+
 
 networks:
   my-network:
     driver: bridge
+
+volumes:
+  portainer_data:
