@@ -4,6 +4,7 @@ import com.alibaba.fastjson2.JSON;
 import com.esotericsoftware.minlog.Log;
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.aggregate.GroupBuyOrderAggregate;
+import com.hth.domain.trade.model.aggregate.GroupBuyRefundAggregate;
 import com.hth.domain.trade.model.aggregate.GroupBuyTeamSettlementAggregate;
 import com.hth.domain.trade.model.entity.*;
 import com.hth.domain.trade.model.valobj.GroupBuyProgressVO;
@@ -27,7 +28,7 @@ import com.hth.types.enums.ResponseCode;
 import com.hth.types.exception.AppException;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.redisson.api.RLock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Repository;
@@ -53,6 +54,9 @@ public class TradeRepository implements ITradeRepository {
     private IRedisService redisService;
     @Value("${spring.rabbitmq.config.producer.topic_team_success.routing_key}")
     private String topic_team_success;
+    @Autowired
+    private IGroupBuyOrderListDao iGroupBuyOrderListDao;
+
     @Override
     public MarketPayOrderEntity queryNoPayMarketPayOrderByOutTradeNo(String userId, String outTradeNo) {
         GroupBuyOrderList groupBuyOrderListReq = new GroupBuyOrderList();
@@ -390,5 +394,29 @@ public class TradeRepository implements ITradeRepository {
     public void recoveryTeamStock(String recoveryTeamStockKey, Integer validTime) {
         if(StringUtils.isBlank(recoveryTeamStockKey)) return;
         redisService.incr(recoveryTeamStockKey);
+    }
+
+    @Override
+    @Transactional(timeout = 5000)
+    public void unpaid2Refund(GroupBuyRefundAggregate groupBuyRefundAggregate) {
+        //从聚合函数中取出数据
+        TradeRefundOrderEntity tradeRefundOrderEntity = groupBuyRefundAggregate.getTradeRefundOrderEntity();
+        GroupBuyProgressVO groupBuyProgress = groupBuyRefundAggregate.getGroupBuyProgress();
+        //更新拼团明细表
+        GroupBuyOrderList groupBuyOrderListReq = new GroupBuyOrderList();
+        groupBuyOrderListReq.setUserId(tradeRefundOrderEntity.getUserId());
+        groupBuyOrderListReq.setOrderId(tradeRefundOrderEntity.getOrderId());
+        int updateUnpaid2RefundCount = groupBuyOrderListDao.unpaid2Refund(groupBuyOrderListReq);
+        if(updateUnpaid2RefundCount != 1){
+            throw new AppException(ResponseCode.UPDATE_ZERO.getCode());
+        }
+        //更新拼团组队表
+        GroupBuyOrder groupBuyOrderReq = new GroupBuyOrder();
+        groupBuyOrderReq.setTeamId(tradeRefundOrderEntity.getTeamId());
+        groupBuyOrderReq.setLockCount(groupBuyProgress.getLockCount());
+        int updateTeamUnpaid2RefundCount = groupBuyOrderDao.unpaid2Refund(groupBuyOrderReq);
+        if (updateTeamUnpaid2RefundCount != 1){
+            throw new AppException(ResponseCode.UPDATE_ZERO.getCode());
+        }
     }
 }
