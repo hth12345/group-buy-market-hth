@@ -19,6 +19,7 @@ public class Unpaid2RefundStrategy implements IRefundOrderStrategy {
     private ITradeRepository repository;
     @Override
     public void refundOrder(TradeRefundOrderEntity tradeRefundOrderEntity) {
+        log.info("退单；未支付，未成团 userId:{} teamId:{} orderId:{}", tradeRefundOrderEntity.getUserId(), tradeRefundOrderEntity.getTeamId(), tradeRefundOrderEntity.getOrderId());
         repository.unpaid2Refund(GroupBuyRefundAggregate.buildUnpaid2RefundAggregate(tradeRefundOrderEntity, -1));
     }
 }

@@ -8,10 +8,4 @@ import java.util.Map;
 public interface ITradeSettlementOrderService {
     //支付结算
     TradePaySettlementEntity settlementMarketPayOrder(TradePaySuccessEntity tradePaySuccessEntity) throws Exception;
-
-    //通过定时执行回调任务
-    Map<String,Integer> execSettlementNotifyJob() throws Exception;
-
-    //完成拼团后自动执行回调任务
-    Map<String, Integer> execSettlementNotifyJob(String teamId) throws Exception;
 }

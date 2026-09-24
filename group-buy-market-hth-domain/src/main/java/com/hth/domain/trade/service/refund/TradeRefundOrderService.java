@@ -26,6 +26,8 @@ public class TradeRefundOrderService implements ITradeRefundOrderService {
 
     @Override
     public TradeRefundBehaviorEntity refundOrder(TradeRefundCommandEntity tradeRefundCommandEntity) {
+        log.info("逆向流程，退单操作 userId:{} outTradeNo:{}", tradeRefundCommandEntity.getUserId(), tradeRefundCommandEntity.getOutTradeNo());
+
         //1.通过用户id和外部交易单号查询订单号、组队id、订单状态
         MarketPayOrderEntity marketPayOrderEntity = repository.queryNoPayMarketPayOrderByOutTradeNo(tradeRefundCommandEntity.getUserId(),tradeRefundCommandEntity.getOutTradeNo());
         String orderId = marketPayOrderEntity.getOrderId();
@@ -33,6 +35,8 @@ public class TradeRefundOrderService implements ITradeRefundOrderService {
         TradeOrderStatusEnumVO tradeOrderStatusEnumVO = marketPayOrderEntity.getTradeOrderStatusEnumVO();
         //2.通过外部交易单号进行幂等校验，已退单就直接返回
         if (tradeOrderStatusEnumVO.equals(TradeOrderStatusEnumVO.CLOSE)){
+            log.info("逆向流程，退单操作(幂等-重复退单) userId:{} outTradeNo:{}", tradeRefundCommandEntity.getUserId(), tradeRefundCommandEntity.getOutTradeNo());
+
             return TradeRefundBehaviorEntity.builder()
                     .userId(tradeRefundCommandEntity.getUserId())
                     .orderId(orderId)
@@ -50,6 +54,7 @@ public class TradeRefundOrderService implements ITradeRefundOrderService {
                 .userId(tradeRefundCommandEntity.getUserId())
                 .orderId(orderId)
                 .teamId(teamId)
+                .activityId(groupBuyTeamEntity.getActivityId())
                 .build());
 
         return TradeRefundBehaviorEntity.builder()

@@ -9,9 +9,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
- * @description 结算完成消息监听
- * @create 2025-03-08 13:49
+ * 结算完成消息监听
  */
 @Slf4j
 @Component
@@ -25,7 +23,7 @@ public class TeamSuccessTopicListener {
             )
     )
     public void listener(String message) {
-        log.info("接收消息:{}", message);
+        log.info("接收消息（组队成功）:{}", message);
     }
 
 }
