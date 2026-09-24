@@ -47,4 +47,5 @@ public interface ITradeRepository {
 
     void unpaid2Refund(GroupBuyRefundAggregate groupBuyRefundAggregate);
 
+    NotifyTaskEntity paid2Refund(GroupBuyRefundAggregate groupBuyRefundAggregate);
 }
