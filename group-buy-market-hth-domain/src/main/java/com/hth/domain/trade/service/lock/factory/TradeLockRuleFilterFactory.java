@@ -20,6 +20,16 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @Service
 public class TradeLockRuleFilterFactory {
+    private static final String teamStockKey = "group_buy_market_team_stock_key_";
+    public static String generateTeamStockKey(String teamId,Long activityId){
+        if (StringUtils.isBlank(teamId)) return null;
+        return teamStockKey + activityId + "_" + teamId;
+    }
+    public static String generateRecoveryTeamStockKey(String teamId,Long activityId) {
+        if (StringUtils.isBlank(teamId)) return null;
+        return teamStockKey + activityId + "_" + teamId + "_recovery";
+    }
+
 
     @Bean("tradeRuleFilter")
     public BusinessLinkedList<TradeLockRuleCommandEntity, DynamicContext, TradeLockRuleFilterBackEntity> tradeRuleFilter(
@@ -43,19 +53,17 @@ public class TradeLockRuleFilterFactory {
     @NoArgsConstructor
     public static class DynamicContext {
 
-        private String teamStockKey = "group_buy_market_team_stock_key_";
-
         private GroupBuyActivityEntity groupBuyActivity;
 
         private Integer userTakeOrderCount;
 
         public String generateTeamStockKey(String teamId){
             if (StringUtils.isBlank(teamId)) return null;
-            return teamStockKey + groupBuyActivity.getActivityId() + "_" + teamId;
+            return TradeLockRuleFilterFactory.generateTeamStockKey(teamId,groupBuyActivity.getActivityId());
         }
         public String generateRecoveryTeamStockKey(String teamId) {
             if (StringUtils.isBlank(teamId)) return null;
-            return teamStockKey + groupBuyActivity.getActivityId() + "_" + teamId + "_recovery";
+            return TradeLockRuleFilterFactory.generateRecoveryTeamStockKey(teamId,groupBuyActivity.getActivityId());
         }
     }
 

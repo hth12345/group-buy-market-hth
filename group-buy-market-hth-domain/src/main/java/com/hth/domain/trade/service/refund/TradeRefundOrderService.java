@@ -3,6 +3,7 @@ package com.hth.domain.trade.service.refund;
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.entity.*;
 import com.hth.domain.trade.model.valobj.RefundTypeEnumVO;
+import com.hth.domain.trade.model.valobj.TeamRefundSuccess;
 import com.hth.domain.trade.model.valobj.TradeOrderStatusEnumVO;
 import com.hth.domain.trade.service.ITradeRefundOrderService;
 import com.hth.domain.trade.service.refund.business.IRefundOrderStrategy;
@@ -63,6 +64,19 @@ public class TradeRefundOrderService implements ITradeRefundOrderService {
                 .teamId(teamId)
                 .tradeRefundBehaviorEnum(TradeRefundBehaviorEntity.TradeRefundBehaviorEnum.SUCCESS)
                 .build();
+    }
+
+    @Override
+    public void restoreTeamLockStock(TeamRefundSuccess teamRefundSuccess) {
+        log.info("逆向流程，恢复锁单量 userId:{} activityId:{} teamId:{}", teamRefundSuccess.getUserId(), teamRefundSuccess.getActivityId(), teamRefundSuccess.getTeamId());
+        String type = teamRefundSuccess.getType();
+
+        // 根据枚举值获取对应的退单类型
+        RefundTypeEnumVO refundTypeEnumVO = RefundTypeEnumVO.getRefundTypeEnumVOByCode(type);
+        IRefundOrderStrategy refundOrderStrategy = refundOrderStrategyMap.get(refundTypeEnumVO.getStrategy());
+
+        // 逆向库存操作，恢复锁单量
+        refundOrderStrategy.reverseStock(teamRefundSuccess);
     }
 
 }
