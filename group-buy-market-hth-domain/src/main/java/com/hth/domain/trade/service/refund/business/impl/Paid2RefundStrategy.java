@@ -6,7 +6,9 @@ import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.aggregate.GroupBuyRefundAggregate;
 import com.hth.domain.trade.model.entity.NotifyTaskEntity;
 import com.hth.domain.trade.model.entity.TradeRefundOrderEntity;
+import com.hth.domain.trade.model.valobj.TeamRefundSuccess;
 import com.hth.domain.trade.service.ITradeTaskService;
+import com.hth.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
 import com.hth.domain.trade.service.refund.business.IRefundOrderStrategy;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -47,5 +49,14 @@ public class Paid2RefundStrategy implements IRefundOrderStrategy {
                         }
             });
         }
+    }
+
+    @Override
+    public void reverseStock(TeamRefundSuccess teamRefundSuccess) {
+        log.info("退单；恢复锁单量 - 已支付，未成团，但有锁单记录，要恢复锁单库存 {} {} {}", teamRefundSuccess.getUserId(), teamRefundSuccess.getActivityId(), teamRefundSuccess.getTeamId());
+        // 1. 恢复库存key
+        String recoveryTeamStockKey = TradeLockRuleFilterFactory.generateRecoveryTeamStockKey(teamRefundSuccess.getTeamId(), teamRefundSuccess.getActivityId());
+        // 2. 退单恢复「已支付，未成团，有锁单记录，要恢复锁单库存」
+        repository.refund2AddRecovery(recoveryTeamStockKey, teamRefundSuccess.getOrderId());
     }
 }

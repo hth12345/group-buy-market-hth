@@ -6,6 +6,7 @@ import com.hth.domain.trade.model.aggregate.GroupBuyRefundAggregate;
 import com.hth.domain.trade.model.entity.GroupBuyTeamEntity;
 import com.hth.domain.trade.model.entity.NotifyTaskEntity;
 import com.hth.domain.trade.model.entity.TradeRefundOrderEntity;
+import com.hth.domain.trade.model.valobj.TeamRefundSuccess;
 import com.hth.domain.trade.service.ITradeTaskService;
 import com.hth.domain.trade.service.refund.business.IRefundOrderStrategy;
 import com.hth.types.enums.GroupBuyOrderEnumVO;
@@ -51,5 +52,10 @@ public class PaidTeam2RefundStrategy implements IRefundOrderStrategy {
                 }
             });
         }
+    }
+
+    @Override
+    public void reverseStock(TeamRefundSuccess teamRefundSuccess) {
+        log.info("退单；已支付、已成团，队伍组队结束，不需要恢复锁单量 {} {} {}", teamRefundSuccess.getUserId(), teamRefundSuccess.getActivityId(), teamRefundSuccess.getTeamId());
     }
 }
