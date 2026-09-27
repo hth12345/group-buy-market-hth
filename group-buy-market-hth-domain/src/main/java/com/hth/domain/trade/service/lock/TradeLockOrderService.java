@@ -18,7 +18,7 @@ public class TradeLockOrderService implements ITradeLockOrderService {
     private BusinessLinkedList<TradeLockRuleCommandEntity, TradeLockRuleFilterFactory.DynamicContext, TradeLockRuleFilterBackEntity> tradeRuleFilter;
     @Override
     public MarketPayOrderEntity queryNoPayMarketPayOrderByOutTradeNo(String userId, String outTradeNo) {
-        return repository.queryNoPayMarketPayOrderByOutTradeNo(userId,outTradeNo);
+        return repository.queryMarketPayOrderEntityByOutTradeNo(userId,outTradeNo);
     }
 
     @Override

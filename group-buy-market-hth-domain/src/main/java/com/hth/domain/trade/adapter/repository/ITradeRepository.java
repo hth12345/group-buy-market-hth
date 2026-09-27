@@ -12,7 +12,7 @@ import com.hth.domain.trade.model.valobj.GroupBuyProgressVO;
 import java.util.List;
 
 public interface ITradeRepository {
-    MarketPayOrderEntity queryNoPayMarketPayOrderByOutTradeNo(String userId, String outTradeNo);
+    MarketPayOrderEntity queryMarketPayOrderEntityByOutTradeNo(String userId, String outTradeNo);
 
     GroupBuyProgressVO queryGroupBuyProgress(String teamId);
 
