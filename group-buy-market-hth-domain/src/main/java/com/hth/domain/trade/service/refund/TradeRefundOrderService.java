@@ -1,6 +1,7 @@
 package com.hth.domain.trade.service.refund;
 
 import cn.bugstack.wrench.design.framework.link.model2.chain.BusinessLinkedList;
+import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
 import com.hth.domain.trade.adapter.repository.ITradeRepository;
 import com.hth.domain.trade.model.entity.*;
 import com.hth.domain.trade.model.valobj.RefundTypeEnumVO;
@@ -14,13 +15,17 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 @Slf4j
 @Service
 public class TradeRefundOrderService implements ITradeRefundOrderService {
+    private final ITradeRepository repository;
     private final Map<String, IRefundOrderStrategy> refundOrderStrategyMap;
 
-    public TradeRefundOrderService(Map<String, IRefundOrderStrategy> refundOrderStrategyMap) {
+    public TradeRefundOrderService(ITradeRepository repository, Map<String, IRefundOrderStrategy> refundOrderStrategyMap) {
+        this.repository = repository;
         this.refundOrderStrategyMap = refundOrderStrategyMap;
     }
     @Resource
@@ -44,4 +49,9 @@ public class TradeRefundOrderService implements ITradeRefundOrderService {
         refundOrderStrategy.reverseStock(teamRefundSuccess);
     }
 
+    @Override
+    public List<UserGroupBuyOrderDetailEntity> queryTimeoutUnpaidOrderList() {
+        log.info("扫描数据，超时组队未支付订单");
+        return repository.queryTimeoutUnpaidOrderList();
+    }
 }

@@ -1,9 +1,6 @@
 package com.hth.api;
 
-import com.hth.api.dto.LockMarketPayOrderRequestDTO;
-import com.hth.api.dto.LockMarketPayOrderResponseDTO;
-import com.hth.api.dto.SettlementMarketPayOrderRequestDTO;
-import com.hth.api.dto.SettlementMarketPayOrderResponseDTO;
+import com.hth.api.dto.*;
 import com.hth.api.response.Response;
 
 public interface IMarketTradeService {
@@ -13,4 +10,8 @@ public interface IMarketTradeService {
 
     //营销结算
     Response<SettlementMarketPayOrderResponseDTO> settlementMarketPayOrder(SettlementMarketPayOrderRequestDTO requestDTO);
+
+    //拼团退单
+    Response<RefundMarketPayOrderResponseDTO> refundMarketPayOrder(RefundMarketPayOrderRequestDTO requestDTO);
+
 }
