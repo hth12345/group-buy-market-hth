@@ -958,3 +958,256 @@ Caused by: java.lang.InterruptedException: null
 26-09-26.16:48:37.151 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
 26-09-26.16:48:37.214 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
 26-09-26.16:48:37.237 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-09-27.13:41:34.048 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 5124 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-09-27.13:41:34.050 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-09-27.13:41:35.539 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-09-27.13:41:35.544 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-09-27.13:41:35.603 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 37 ms. Found 0 Redis repository interfaces.
+26-09-27.13:41:36.894 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterRegisterAutoConfig' of type [cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterRegisterAutoConfig$$EnhancerBySpringCGLIB$$7a87f7b5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.13:41:36.922 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'xfg.wrench.config-cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterAutoProperties' of type [cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterAutoProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.13:41:36.928 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$841762e8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.13:41:36.934 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.13:41:38.372 [main            ] INFO  Version                - Redisson 3.26.0
+26-09-27.13:41:39.748 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.13:41:39.777 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.13:41:39.851 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.13:41:39.879 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicConfigCenterService' of type [cn.bugstack.wrench.dynamic.config.center.domain.service.DynamicConfigCenterService] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.13:41:44.697 [main            ] INFO  Version                - Redisson 3.26.0
+26-09-27.13:41:44.743 [redisson-netty-5-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.13:41:44.789 [redisson-netty-5-23] INFO  ConnectionsHolder      - 10 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.13:41:44.789 [main            ] INFO  DynamicConfigCenterRegisterAutoConfig - xfg-wrench，注册器（redis）链接初始化完成。127.0.0.1 64 true
+26-09-27.13:41:46.177 [main            ] INFO  EndpointLinksResolver  - Exposing 14 endpoint(s) beneath base path '/actuator'
+26-09-27.13:41:46.335 [main            ] INFO  CachingConnectionFactory - Attempting to connect to: [127.0.0.1:5672]
+26-09-27.13:41:46.529 [main            ] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#25b4754a:0/SimpleConnection@28b68067 [delegate=amqp://admin@127.0.0.1:5672/, localPort= 55628]
+26-09-27.13:41:46.697 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 13.591 seconds (JVM running for 15.096)
+26-09-27.13:41:47.409 [main            ] INFO  MarketTradeController  - 营销交易锁单:hth0041 LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"010681092041","source":"s01","teamId":"","userId":"hth0041"}
+26-09-27.13:41:47.450 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-09-27.13:41:47.678 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-09-27.13:41:47.744 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:hth0041 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth0041"}
+26-09-27.13:41:47.853 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:hth0041 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth0041"}
+26-09-27.13:41:47.859 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:hth0041 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth0041"}
+26-09-27.13:41:47.866 [main            ] INFO  ActivityUsabilityRuleFilter - 交易规则过滤-活动的可用性校验hth0041 activityId:100123
+26-09-27.13:41:47.874 [main            ] INFO  UserTakeLimitRuleFilter - 交易规则过滤-用户参与次数校验hth0041 activityId:100123
+26-09-27.13:41:47.879 [main            ] INFO  TeamStockOccupyRuleFilter - 交易规则过滤-组队库存校验hth0041 activityId:100123
+26-09-27.13:41:47.947 [main            ] INFO  MarketTradeController  - 交易锁单记录(新):hth0041 marketPayOrderEntity:{"deductionPrice":20.00,"orderId":"247200472962","originalPrice":100.00,"payPrice":80.00,"teamId":"15806784","tradeOrderStatusEnumVO":"CREATE"}
+26-09-27.13:41:47.956 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"010681092041","source":"s01","teamId":"","userId":"hth0041"} res:{"code":"0000","data":{"deductionPrice":20.00,"orderId":"247200472962","originalPrice":100.00,"payPrice":80.00,"teamId":"15806784","tradeOrderStatus":0},"info":"成功"}
+26-09-27.13:41:47.987 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-09-27.13:41:47.989 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-09-27.13:41:48.696 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-09-27.13:41:48.697 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-09-27.13:41:48.700 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-09-27.13:41:48.701 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-09-27.13:41:48.744 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-09-27.13:41:48.758 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
+26-09-27.14:05:06.854 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 22512 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-09-27.14:05:06.856 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-09-27.14:05:08.433 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-09-27.14:05:08.439 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-09-27.14:05:08.503 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 0 Redis repository interfaces.
+26-09-27.14:05:09.890 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterRegisterAutoConfig' of type [cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterRegisterAutoConfig$$EnhancerBySpringCGLIB$$e59e28b7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:05:09.919 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'xfg.wrench.config-cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterAutoProperties' of type [cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterAutoProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:05:09.927 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$ef2d93ea] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:05:09.933 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:05:11.389 [main            ] INFO  Version                - Redisson 3.26.0
+26-09-27.14:05:12.775 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.14:05:12.802 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.14:05:12.871 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:05:12.902 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicConfigCenterService' of type [cn.bugstack.wrench.dynamic.config.center.domain.service.DynamicConfigCenterService] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:05:16.235 [main            ] WARN  GenericWebApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'timeoutRefundJob' defined in file [D:\project\group-buy-market-hth\group-buy-market-hth-trigger\target\classes\com\hth\trigger\job\TimeoutRefundJob.class]: Initialization of bean failed; nested exception is java.lang.IllegalStateException: Encountered invalid @Scheduled method 'exec': For input string: "*" '20/*' in cron expression "20/* * * * * ?"
+26-09-27.14:05:16.297 [main            ] INFO  ConditionEvaluationReportLoggingListener - 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+26-09-27.14:05:16.333 [main            ] ERROR SpringApplication      - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'timeoutRefundJob' defined in file [D:\project\group-buy-market-hth\group-buy-market-hth-trigger\target\classes\com\hth\trigger\job\TimeoutRefundJob.class]: Initialization of bean failed; nested exception is java.lang.IllegalStateException: Encountered invalid @Scheduled method 'exec': For input string: "*" '20/*' in cron expression "20/* * * * * ?"
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:136)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:141)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:90)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:124)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+Caused by: java.lang.IllegalStateException: Encountered invalid @Scheduled method 'exec': For input string: "*" '20/*' in cron expression "20/* * * * * ?"
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.processScheduled(ScheduledAnnotationBeanPostProcessor.java:518)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.lambda$null$1(ScheduledAnnotationBeanPostProcessor.java:380)
+	at java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.lambda$postProcessAfterInitialization$2(ScheduledAnnotationBeanPostProcessor.java:380)
+	at java.util.LinkedHashMap.forEach(LinkedHashMap.java:684)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.postProcessAfterInitialization(ScheduledAnnotationBeanPostProcessor.java:379)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	... 41 common frames omitted
+26-09-27.14:05:16.334 [main            ] ERROR TestContextManager     - Caught exception while allowing TestExecutionListener [org.springframework.test.context.web.ServletTestExecutionListener@72437d8d] to prepare test instance [com.hth.test.trigger.MarketTradeControllerTest@6e349258]
+java.lang.IllegalStateException: Failed to load ApplicationContext
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:98)
+	at org.springframework.test.context.support.DefaultTestContext.getApplicationContext(DefaultTestContext.java:124)
+	at org.springframework.test.context.web.ServletTestExecutionListener.setUpRequestContextIfNecessary(ServletTestExecutionListener.java:190)
+	at org.springframework.test.context.web.ServletTestExecutionListener.prepareTestInstance(ServletTestExecutionListener.java:132)
+	at org.springframework.test.context.TestContextManager.prepareTestInstance(TestContextManager.java:248)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTest(SpringJUnit4ClassRunner.java:227)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner$1.runReflectiveCall(SpringJUnit4ClassRunner.java:289)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.methodBlock(SpringJUnit4ClassRunner.java:291)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:246)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'timeoutRefundJob' defined in file [D:\project\group-buy-market-hth\group-buy-market-hth-trigger\target\classes\com\hth\trigger\job\TimeoutRefundJob.class]: Initialization of bean failed; nested exception is java.lang.IllegalStateException: Encountered invalid @Scheduled method 'exec': For input string: "*" '20/*' in cron expression "20/* * * * * ?"
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:628)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:542)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:335)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:208)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:955)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:920)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:583)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:731)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:307)
+	at org.springframework.boot.test.context.SpringBootContextLoader.loadContext(SpringBootContextLoader.java:136)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContextInternal(DefaultCacheAwareContextLoaderDelegate.java:141)
+	at org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate.loadContext(DefaultCacheAwareContextLoaderDelegate.java:90)
+	... 27 common frames omitted
+Caused by: java.lang.IllegalStateException: Encountered invalid @Scheduled method 'exec': For input string: "*" '20/*' in cron expression "20/* * * * * ?"
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.processScheduled(ScheduledAnnotationBeanPostProcessor.java:518)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.lambda$null$1(ScheduledAnnotationBeanPostProcessor.java:380)
+	at java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.lambda$postProcessAfterInitialization$2(ScheduledAnnotationBeanPostProcessor.java:380)
+	at java.util.LinkedHashMap.forEach(LinkedHashMap.java:684)
+	at org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProcessor.postProcessAfterInitialization(ScheduledAnnotationBeanPostProcessor.java:379)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.applyBeanPostProcessorsAfterInitialization(AbstractAutowireCapableBeanFactory.java:455)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1808)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:620)
+	... 41 common frames omitted
+26-09-27.14:06:54.218 [main            ] INFO  MarketTradeControllerTest - Starting MarketTradeControllerTest using Java 1.8.0_411 on hth with PID 1700 (started by 黄廷华 in D:\project\group-buy-market-hth\group-buy-market-hth-app)
+26-09-27.14:06:54.221 [main            ] INFO  MarketTradeControllerTest - The following 1 profile is active: "dev"
+26-09-27.14:06:55.510 [main            ] INFO  RepositoryConfigurationDelegate - Multiple Spring Data modules found, entering strict repository configuration mode
+26-09-27.14:06:55.515 [main            ] INFO  RepositoryConfigurationDelegate - Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+26-09-27.14:06:55.576 [main            ] INFO  RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 0 Redis repository interfaces.
+26-09-27.14:06:56.784 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterRegisterAutoConfig' of type [cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterRegisterAutoConfig$$EnhancerBySpringCGLIB$$44446037] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:06:56.817 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'xfg.wrench.config-cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterAutoProperties' of type [cn.bugstack.wrench.dynamic.config.center.config.DynamicConfigCenterAutoProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:06:56.823 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redisClientConfig' of type [com.hth.config.RedisClientConfig$$EnhancerBySpringCGLIB$$4dd3cb6a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:06:56.829 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redis.sdk.config-com.hth.config.RedisClientConfigProperties' of type [com.hth.config.RedisClientConfigProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:06:58.230 [main            ] INFO  Version                - Redisson 3.26.0
+26-09-27.14:06:59.563 [redisson-netty-1-4] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.14:06:59.589 [redisson-netty-1-13] INFO  ConnectionsHolder      - 5 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.14:06:59.647 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'redissonClient' of type [org.redisson.Redisson] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:06:59.681 [main            ] INFO  PostProcessorRegistrationDelegate$BeanPostProcessorChecker - Bean 'dynamicConfigCenterService' of type [cn.bugstack.wrench.dynamic.config.center.domain.service.DynamicConfigCenterService] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+26-09-27.14:07:04.265 [main            ] INFO  Version                - Redisson 3.26.0
+26-09-27.14:07:04.310 [redisson-netty-5-5] INFO  ConnectionsHolder      - 1 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.14:07:04.356 [redisson-netty-5-23] INFO  ConnectionsHolder      - 10 connections initialized for 127.0.0.1/127.0.0.1:16379
+26-09-27.14:07:04.356 [main            ] INFO  DynamicConfigCenterRegisterAutoConfig - xfg-wrench，注册器（redis）链接初始化完成。127.0.0.1 64 true
+26-09-27.14:07:05.774 [main            ] INFO  EndpointLinksResolver  - Exposing 14 endpoint(s) beneath base path '/actuator'
+26-09-27.14:07:05.930 [main            ] INFO  CachingConnectionFactory - Attempting to connect to: [127.0.0.1:5672]
+26-09-27.14:07:06.029 [main            ] INFO  CachingConnectionFactory - Created new connection: rabbitConnectionFactory#1715193f:0/SimpleConnection@7bc46dde [delegate=amqp://admin@127.0.0.1:5672/, localPort= 61786]
+26-09-27.14:07:06.161 [main            ] INFO  MarketTradeControllerTest - Started MarketTradeControllerTest in 12.942 seconds (JVM running for 14.484)
+26-09-27.14:07:06.820 [main            ] INFO  MarketTradeController  - 营销交易锁单:hth0041 LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"520537568315","source":"s01","teamId":"","userId":"hth0041"}
+26-09-27.14:07:06.864 [main            ] INFO  HikariDataSource       - HikariPool-1 - Starting...
+26-09-27.14:07:07.095 [main            ] INFO  HikariDataSource       - HikariPool-1 - Start completed.
+26-09-27.14:07:07.164 [main            ] INFO  RootNode               - 拼团商品查询试算服务-RootNode userId:hth0041 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth0041"}
+26-09-27.14:07:07.257 [main            ] INFO  MarketNode             - 拼团商品查询试算服务-MarketNode userId:hth0041 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth0041"}
+26-09-27.14:07:07.264 [main            ] INFO  EndNode                - 拼团商品查询试算服务-EndNode userId:hth0041 requestParameter:{"activityId":100123,"channel":"c01","goodsId":"9890001","source":"s01","userId":"hth0041"}
+26-09-27.14:07:07.273 [main            ] INFO  ActivityUsabilityRuleFilter - 交易规则过滤-活动的可用性校验hth0041 activityId:100123
+26-09-27.14:07:07.279 [main            ] INFO  UserTakeLimitRuleFilter - 交易规则过滤-用户参与次数校验hth0041 activityId:100123
+26-09-27.14:07:07.285 [main            ] INFO  UserTakeLimitRuleFilter - 用户参与次数校验，已达可参与上限 activityId:100123
+26-09-27.14:07:07.290 [main            ] ERROR MarketTradeController  - 营销交易锁单业务异常:hth0041 LockMarketPayOrderRequestDTO:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"520537568315","source":"s01","teamId":"","userId":"hth0041"}
+com.hth.types.exception.AppException: null
+	at com.hth.domain.trade.service.lock.filter.UserTakeLimitRuleFilter.apply(UserTakeLimitRuleFilter.java:36)
+	at com.hth.domain.trade.service.lock.filter.UserTakeLimitRuleFilter.apply(UserTakeLimitRuleFilter.java:16)
+	at cn.bugstack.wrench.design.framework.link.model2.chain.BusinessLinkedList.apply(BusinessLinkedList.java:21)
+	at com.hth.domain.trade.service.lock.TradeLockOrderService.lockMarketPayOrder(TradeLockOrderService.java:34)
+	at com.hth.trigger.http.MarketTradeController.lockMarketPayOrder(MarketTradeController.java:121)
+	at com.hth.test.trigger.MarketTradeControllerTest.test_lockMarketPayOrder(MarketTradeControllerTest.java:42)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestExecutionCallbacks.evaluate(RunBeforeTestExecutionCallbacks.java:74)
+	at org.springframework.test.context.junit4.statements.RunAfterTestExecutionCallbacks.evaluate(RunAfterTestExecutionCallbacks.java:84)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:75)
+	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:86)
+	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:84)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:251)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:97)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:61)
+	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:70)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:190)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:69)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater$1.execute(IdeaTestRunner.java:38)
+	at com.intellij.rt.execution.junit.TestsRepeater.repeat(TestsRepeater.java:11)
+	at com.intellij.rt.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:35)
+	at com.intellij.rt.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:232)
+	at com.intellij.rt.junit.JUnitStarter.main(JUnitStarter.java:55)
+26-09-27.14:07:07.293 [main            ] INFO  MarketTradeControllerTest - 测试结果 req:{"activityId":100123,"channel":"c01","goodsId":"9890001","notifyConfigVO":{"notifyType":"MQ"},"outTradeNo":"520537568315","source":"s01","teamId":"","userId":"hth0041"} res:{"code":"E0103","info":"当前用户参与此拼团次数已达上限"}
+26-09-27.14:07:07.319 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-09-27.14:07:07.322 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] INFO  SimpleMessageListenerContainer - Waiting for workers to finish.
+26-09-27.14:07:08.142 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#0-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-09-27.14:07:08.154 [org.springframework.amqp.rabbit.RabbitListenerEndpointContainer#1-2] INFO  SimpleMessageListenerContainer - Successfully waited for workers to finish.
+26-09-27.14:07:08.159 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-09-27.14:07:08.160 [SpringApplicationShutdownHook] INFO  SimpleMessageListenerContainer - Shutdown ignored - container is already stopped
+26-09-27.14:07:08.209 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown initiated...
+26-09-27.14:07:08.226 [SpringApplicationShutdownHook] INFO  HikariDataSource       - HikariPool-1 - Shutdown completed.
