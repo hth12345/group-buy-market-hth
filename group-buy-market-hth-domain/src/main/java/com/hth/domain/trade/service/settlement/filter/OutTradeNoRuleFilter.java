@@ -20,7 +20,7 @@ public class OutTradeNoRuleFilter implements ILogicHandler<TradeSettlementRuleCo
     private ITradeRepository repository;
     @Override
     public TradeSettlementRuleFilterBackEntity apply(TradeSettlementRuleCommandEntity requestParameter, TradeSettlementRuleFilterFactory.DynamicContext dynamicContext) throws Exception {
-        MarketPayOrderEntity marketPayOrderEntity = repository.queryNoPayMarketPayOrderByOutTradeNo(requestParameter.getUserId(), requestParameter.getOutTradeNo());
+        MarketPayOrderEntity marketPayOrderEntity = repository.queryMarketPayOrderEntityByOutTradeNo(requestParameter.getUserId(), requestParameter.getOutTradeNo());
         if (marketPayOrderEntity == null) {
             throw new AppException(ResponseCode.E0104.getCode(),ResponseCode.E0104.getInfo());
         }

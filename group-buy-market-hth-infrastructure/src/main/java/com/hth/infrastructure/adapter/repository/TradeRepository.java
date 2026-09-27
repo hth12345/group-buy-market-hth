@@ -58,7 +58,7 @@ public class TradeRepository implements ITradeRepository {
     private IGroupBuyOrderListDao iGroupBuyOrderListDao;
 
     @Override
-    public MarketPayOrderEntity queryNoPayMarketPayOrderByOutTradeNo(String userId, String outTradeNo) {
+    public MarketPayOrderEntity queryMarketPayOrderEntityByOutTradeNo(String userId, String outTradeNo) {
         GroupBuyOrderList groupBuyOrderListReq = new GroupBuyOrderList();
         groupBuyOrderListReq.setOutTradeNo(outTradeNo);
         groupBuyOrderListReq.setUserId(userId);

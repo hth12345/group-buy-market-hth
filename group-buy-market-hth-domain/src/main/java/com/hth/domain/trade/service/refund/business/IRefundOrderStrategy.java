@@ -9,5 +9,5 @@ import com.hth.domain.trade.model.valobj.TeamRefundSuccess;
 public interface IRefundOrderStrategy {
     void refundOrder(TradeRefundOrderEntity tradeRefundOrderEntity);
 
-    void reverseStock(TeamRefundSuccess teamRefundSuccess);
+    void reverseStock(TeamRefundSuccess teamRefundSuccess) throws Exception;
 }
