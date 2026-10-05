@@ -66,7 +66,6 @@ public class TradeSettlementOrderService implements ITradeSettlementOrderService
         // 异步线程处理
         if (notifyTaskEntity != null) {
             threadPoolExecutor.execute(() -> {
-                List<NotifyTaskEntity> notifyTaskEntityList = Collections.singletonList(notifyTaskEntity);
                 Map<String, Integer> notifyResultMap = null;
                 try {
                     notifyResultMap = tradeTaskService.execNotifyJob(notifyTaskEntity);
