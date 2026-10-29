@@ -45,7 +45,7 @@ public class TradeRefundOrderService implements ITradeRefundOrderService {
         RefundTypeEnumVO refundTypeEnumVO = RefundTypeEnumVO.getRefundTypeEnumVOByCode(type);
         IRefundOrderStrategy refundOrderStrategy = refundOrderStrategyMap.get(refundTypeEnumVO.getStrategy());
 
-        // 逆向库存操作，恢复锁单量
+        // 逆向库存操作，恢复库存
         refundOrderStrategy.reverseStock(teamRefundSuccess);
     }
 

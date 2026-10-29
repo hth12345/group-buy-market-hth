@@ -119,6 +119,7 @@
         <appender-ref ref="ASYNC_FILE_INFO"/>
         <!-- 异步日志-ERROR -->
         <appender-ref ref="ASYNC_FILE_ERROR"/>
+        <appender-ref ref="LOGSTASH"/>
     </root>
 
 </configuration>

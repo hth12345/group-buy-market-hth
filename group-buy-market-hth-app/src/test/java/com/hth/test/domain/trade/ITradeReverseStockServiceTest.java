@@ -4,6 +4,7 @@ import com.hth.api.IMarketTradeService;
 import com.hth.api.dto.LockMarketPayOrderRequestDTO;
 import com.hth.api.dto.LockMarketPayOrderResponseDTO;
 import com.hth.api.response.Response;
+import com.hth.types.enums.ResponseCode;
 import com.hth.domain.trade.model.entity.TradeRefundBehaviorEntity;
 import com.hth.domain.trade.model.entity.TradeRefundCommandEntity;
 import com.hth.domain.trade.service.ITradeRefundOrderService;
@@ -56,9 +57,9 @@ public class ITradeReverseStockServiceTest {
     @Test
     public void test_lockMarketPayOrder() throws InterruptedException {
         String teamId = null;
-        for (int i = 1; i < 4; i++) {
+        for (int i = 1; i < 100; i++) {
             LockMarketPayOrderRequestDTO lockMarketPayOrderRequestDTO = new LockMarketPayOrderRequestDTO();
-            lockMarketPayOrderRequestDTO.setUserId("hth30" + i);
+            lockMarketPayOrderRequestDTO.setUserId("hth400" + i);
             lockMarketPayOrderRequestDTO.setTeamId(teamId);
             lockMarketPayOrderRequestDTO.setActivityId(100123L);
             lockMarketPayOrderRequestDTO.setGoodsId("9890001");
@@ -68,9 +69,13 @@ public class ITradeReverseStockServiceTest {
             lockMarketPayOrderRequestDTO.setOutTradeNo(RandomStringUtils.randomNumeric(12));
 
             Response<LockMarketPayOrderResponseDTO> lockMarketPayOrderResponseDTOResponse = marketTradeService.lockMarketPayOrder(lockMarketPayOrderRequestDTO);
-            teamId = lockMarketPayOrderResponseDTOResponse.getData().getTeamId();
 
             log.info("第{}笔，测试结果 req:{} res:{}", i, JSON.toJSONString(lockMarketPayOrderRequestDTO), JSON.toJSONString(lockMarketPayOrderResponseDTOResponse));
+
+            // 响应成功才取 teamId，拼单目标已达成时 data 为 null
+            if (ResponseCode.SUCCESS.getCode().equals(lockMarketPayOrderResponseDTOResponse.getCode()) && lockMarketPayOrderResponseDTOResponse.getData() != null) {
+                teamId = lockMarketPayOrderResponseDTOResponse.getData().getTeamId();
+            }
         }
 
     }

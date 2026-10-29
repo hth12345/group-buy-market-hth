@@ -386,10 +386,11 @@ public class TradeRepository implements ITradeRepository {
             return false;
         }
         String lockKey = teamStockKey + Constants.UNDERLINE + occupy;
-        // TODO 高效整洁
         Boolean isLock = redisService.setNx(lockKey, validTime + 60, TimeUnit.MINUTES);
         if(!isLock){
-            Log.info("组队库存加锁失败 {}",lockKey);
+            // setNx失败，回滚incr，避免幽灵占用导致库存虚高
+            redisService.decr(teamStockKey);
+            log.warn("组队库存加锁失败，已回滚库存 {}", lockKey);
         }
         return isLock;
     }

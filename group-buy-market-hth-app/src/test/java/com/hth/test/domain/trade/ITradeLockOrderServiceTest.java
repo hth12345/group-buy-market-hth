@@ -1,5 +1,9 @@
 package com.hth.test.domain.trade;
 
+import com.hth.api.IMarketTradeService;
+import com.hth.api.dto.LockMarketPayOrderRequestDTO;
+import com.hth.api.dto.LockMarketPayOrderResponseDTO;
+import com.hth.api.response.Response;
 import com.hth.domain.activity.model.entity.MarketProductEntity;
 import com.hth.domain.activity.model.entity.TrialBalanceEntity;
 import com.hth.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
@@ -11,6 +15,7 @@ import com.hth.domain.trade.model.entity.UserEntity;
 import com.hth.domain.trade.service.ITradeLockOrderService;
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +38,9 @@ public class ITradeLockOrderServiceTest {
 
     @Resource
     private ITradeLockOrderService tradeOrderService;
+
+    @Resource
+    private IMarketTradeService marketTradeService;
 
     @Test
     public void test_lockMarketPayOrder() throws Exception {
@@ -86,4 +94,30 @@ public class ITradeLockOrderServiceTest {
         log.info("测试结果(New):{}",JSON.toJSONString(marketPayOrderEntityNew));
     }
 
+
+    @Test
+    public void test_lockMarketPayOrder2() throws InterruptedException {
+        String teamId = null;
+        for (int i = 1; i < 100; i++) {
+            LockMarketPayOrderRequestDTO lockMarketPayOrderRequestDTO = new LockMarketPayOrderRequestDTO();
+            lockMarketPayOrderRequestDTO.setUserId("hth400" + i);
+            lockMarketPayOrderRequestDTO.setTeamId(teamId);
+            lockMarketPayOrderRequestDTO.setActivityId(100123L);
+            lockMarketPayOrderRequestDTO.setGoodsId("9890001");
+            lockMarketPayOrderRequestDTO.setSource("s01");
+            lockMarketPayOrderRequestDTO.setChannel("c01");
+            lockMarketPayOrderRequestDTO.setNotifyMQ();
+            lockMarketPayOrderRequestDTO.setOutTradeNo(RandomStringUtils.randomNumeric(12));
+
+            Response<LockMarketPayOrderResponseDTO> lockMarketPayOrderResponseDTOResponse = marketTradeService.lockMarketPayOrder(lockMarketPayOrderRequestDTO);
+
+            log.info("第{}笔，测试结果 req:{} res:{}", i, JSON.toJSONString(lockMarketPayOrderRequestDTO), JSON.toJSONString(lockMarketPayOrderResponseDTOResponse));
+
+            // 响应成功才取 teamId，拼单目标已达成时 data 为 null
+            if ("0000".equals(lockMarketPayOrderResponseDTOResponse.getCode()) && lockMarketPayOrderResponseDTOResponse.getData() != null) {
+                teamId = lockMarketPayOrderResponseDTOResponse.getData().getTeamId();
+            }
+        }
+
+    }
 }
