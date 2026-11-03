@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author hth
  * @description 消息发送
  * @create 2024-03-30 12:40
  */

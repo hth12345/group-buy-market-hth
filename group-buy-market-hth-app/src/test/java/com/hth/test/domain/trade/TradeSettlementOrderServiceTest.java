@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author hth
  * @description 拼团交易结算服务测试
  * @create 2025-01-26 18:59
  */

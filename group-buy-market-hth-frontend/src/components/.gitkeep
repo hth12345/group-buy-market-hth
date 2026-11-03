@@ -1,0 +1,3 @@
+# 此目录用于存放可复用的 Vue 组件
+# 【类比后端】相当于 common/util 包下的公共组件
+# 例如：NavBar.vue 导航栏组件、Pagination.vue 分页组件等

@@ -1,21 +1,20 @@
 package com.hth.domain.activity.service;
 
+import cn.bugstack.wrench.design.framework.link.model2.chain.BusinessLinkedList;
 import cn.bugstack.wrench.design.framework.tree.StrategyHandler;
 import com.hth.domain.activity.adapter.repository.IActivityRepository;
-import com.hth.domain.activity.model.entity.MarketProductEntity;
-import com.hth.domain.activity.model.entity.TrialBalanceEntity;
-import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
+import com.hth.domain.activity.model.entity.*;
 import com.hth.domain.activity.model.valobj.TeamStatisticVO;
+import com.hth.domain.activity.service.factory.ActivitiesRuleFilterFactory;
 import com.hth.domain.activity.service.trial.factory.DefaultActivityStrategyFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author hth
  * @description 首页营销服务
  * @create 2024-12-14 14:33
  */
@@ -24,6 +23,8 @@ public class IndexGroupBuyMarketServiceImpl implements IIndexGroupBuyMarketServi
 
     @Resource
     private DefaultActivityStrategyFactory defaultActivityStrategyFactory;
+    @Resource
+    private BusinessLinkedList<ActivitiesCommandEntity, ActivitiesRuleFilterFactory.DynamicContext, ActivitiesBackEntity> activitiesRuleFilter;
     @Resource
     private IActivityRepository repository;
 
@@ -64,6 +65,17 @@ public class IndexGroupBuyMarketServiceImpl implements IIndexGroupBuyMarketServi
     @Override
     public TeamStatisticVO queryTeamStatisticByActivityId(Long activityId) {
         return repository.queryTeamStatisticByActivityId(activityId);
+    }
+
+    @Override
+    public List<ActivityInfoEntity> queryAllActivities(ActivityQueryEntity activityQueryEntity) throws Exception {
+        ActivitiesBackEntity activitiesBackEntity = activitiesRuleFilter.apply(ActivitiesCommandEntity.builder()
+                        .userId(activityQueryEntity.getUserId())
+                        .source(activityQueryEntity.getSource())
+                        .channel(activityQueryEntity.getChannel())
+                        .build(),
+                new ActivitiesRuleFilterFactory.DynamicContext());
+        return activitiesBackEntity.getActivityInfoEntityList();
     }
 
 }

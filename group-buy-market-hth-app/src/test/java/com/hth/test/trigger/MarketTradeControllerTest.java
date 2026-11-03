@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author hth
  * @description 营销交易服务
  * @create 2025-01-11 14:20
  */

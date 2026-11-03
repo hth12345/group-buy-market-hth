@@ -1,5 +1,7 @@
 package com.hth.domain.activity.adapter.repository;
 
+import com.hth.domain.activity.model.entity.ActivityInfoEntity;
+import com.hth.domain.activity.model.entity.GoodsInfoEntity;
 import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
 import com.hth.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import com.hth.domain.activity.model.valobj.SCSkuActivityVO;
@@ -30,4 +32,7 @@ public interface IActivityRepository {
 
     TeamStatisticVO queryTeamStatisticByActivityId(Long activityId);
 
+    List<ActivityInfoEntity> queryAllActivities();
+
+    List<GoodsInfoEntity> queryAllGoods(List<Long> activityIds);
 }

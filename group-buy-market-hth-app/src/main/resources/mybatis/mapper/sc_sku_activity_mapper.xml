@@ -12,10 +12,25 @@
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
+    <resultMap id="scSkuActivityVOMap" type="com.hth.domain.activity.model.valobj.SCSkuActivityVO">
+        <result column="source" property="source"/>
+        <result column="channel" property="channel"/>
+        <result column="activity_id" property="activityId"/>
+        <result column="goods_id" property="goodsId"/>
+    </resultMap>
+
     <select id="querySCSkuActivityBySCGoodsId" parameterType="com.hth.infrastructure.dao.po.SCSkuActivity" resultMap="dataMap">
         select source, channel, activity_id, goods_id
         from sc_sku_activity
         where goods_id = #{goodsId} and source = #{source} and channel = #{channel}
+    </select>
+    <select id="queryGoodByActivityIds" resultMap="scSkuActivityVOMap">
+        select source, channel, activity_id, goods_id
+        from sc_sku_activity
+        where activity_id in
+        <foreach item="activityId" index="index" collection="activityIds" open="(" separator="," close=")">
+            #{activityId}
+        </foreach>
     </select>
 
 </mapper>

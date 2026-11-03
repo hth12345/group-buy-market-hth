@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author hth
  * @description 商品信息
  * @create 2024-12-21 10:45
  */
@@ -21,7 +21,7 @@ public class SCSkuActivityVO {
     /** 渠道 */
     private String source;
     /** 来源 */
-    private String chanel;
+    private String channel;
     /** 活动ID */
     private Long activityId;
     /** 商品ID */

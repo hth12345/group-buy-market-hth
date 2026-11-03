@@ -1,6 +1,8 @@
 package com.hth.infrastructure.adapter.repository;
 
 import com.hth.domain.activity.adapter.repository.IActivityRepository;
+import com.hth.domain.activity.model.entity.ActivityInfoEntity;
+import com.hth.domain.activity.model.entity.GoodsInfoEntity;
 import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
 import com.hth.domain.activity.model.valobj.*;
 import com.hth.infrastructure.dao.*;
@@ -9,7 +11,10 @@ import com.hth.infrastructure.dcc.DCCService;
 import com.hth.infrastructure.redis.IRedisService;
 import lombok.Builder;
 import org.redisson.api.RBitSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -18,6 +23,8 @@ import java.util.stream.Collectors;
 @Builder
 @Repository
 public class ActivityRepository extends AbstractRepository implements IActivityRepository {
+    private static final Logger log = LoggerFactory.getLogger(ActivityRepository.class);
+
     @Resource
     private IGroupBuyActivityDao groupBuyActivityDao;
     @Resource
@@ -96,7 +103,7 @@ public class ActivityRepository extends AbstractRepository implements IActivityR
 
         return SCSkuActivityVO.builder()
                 .source(scSkuActivity.getSource())
-                .chanel(scSkuActivity.getChannel())
+                .channel(scSkuActivity.getChannel())
                 .goodsId(scSkuActivity.getGoodsId())
                 .activityId(scSkuActivity.getActivityId())
                 .build();
@@ -231,6 +238,7 @@ public class ActivityRepository extends AbstractRepository implements IActivityR
     }
 
     @Override
+    @Transactional(timeout = 500)
     public TeamStatisticVO queryTeamStatisticByActivityId(Long activityId) {
         // 1. 根据活动ID查询拼团队伍
         List<GroupBuyOrderList> groupBuyOrderLists = groupBuyOrderListDao.queryInProgressUserGroupBuyOrderDetailListByActivityId(activityId);
@@ -258,4 +266,122 @@ public class ActivityRepository extends AbstractRepository implements IActivityR
                 .build();
     }
 
+    // 查询所有活动
+    @Override
+    public List<ActivityInfoEntity> queryAllActivities() {
+        // 生成缓存键
+        String cacheKey = ActivityInfoEntity.cacheRedisKey();
+        log.info("开始查询所有活动，缓存键: {}", cacheKey);
+
+        // 使用父类的缓存方法
+        return getFromCacheOrDb(cacheKey, () -> {
+            log.info("缓存未命中，从数据库查询所有活动");
+
+            List<GroupBuyActivity> activityList = groupBuyActivityDao.queryAllActivities();
+            log.info("查询到的活动数量: {}", activityList != null ? activityList.size() : 0);
+
+            List<ActivityInfoEntity> activityInfoEntities = new ArrayList<>();
+            for (GroupBuyActivity activity : activityList) {
+                activityInfoEntities.add(ActivityInfoEntity.builder()
+                        .activityId(activity.getActivityId())
+                        .activityName(activity.getActivityName())
+                        .discountId(activity.getDiscountId())
+                        .groupType(activity.getGroupType())
+                        .takeLimitCount(activity.getTakeLimitCount())
+                        .target(activity.getTarget())
+                        .validTime(activity.getValidTime())
+                        .status(activity.getStatus())
+                        .tagId(activity.getTagId())
+                        .tagScope(activity.getTagScope())
+                        .startTime(activity.getStartTime())
+                        .endTime(activity.getEndTime())
+                        .build());
+            }
+
+            log.info("最终组装的活动信息数量: {}", activityInfoEntities.size());
+            return activityInfoEntities;
+        }, 20000L);  // 缓存20秒
+    }
+
+    @Override
+    @Transactional(timeout = 500)
+    public List<GoodsInfoEntity> queryAllGoods(List<Long> activityIds) {
+        log.info("开始查询所有商品，活动ID列表: {}", activityIds);
+
+        // 生成缓存键
+        String cacheKey = GoodsInfoEntity.cacheRedisKey(activityIds);
+        log.info("缓存键: {}", cacheKey);
+
+        // 使用父类的缓存方法
+        return getFromCacheOrDb(cacheKey, () -> {
+            log.info("缓存未命中，从数据库查询");
+
+            List<SCSkuActivityVO> scSkuActivityList  = scSkuActivityDao.queryGoodByActivityIds(activityIds);
+            log.info("查询到的活动商品关联数据: {}", scSkuActivityList != null ? scSkuActivityList.size() : 0);
+
+            if (null == scSkuActivityList || scSkuActivityList.isEmpty())
+                return Collections.emptyList();
+
+            // 过滤 null 元素并提取 goodsId
+            List<String> goodsIdList = scSkuActivityList.stream()
+                    .filter(vo -> {
+                        if (vo == null) {
+                            log.warn("发现 null 的 SCSkuActivityVO 对象");
+                            return false;
+                        }
+                        if (vo.getGoodsId() == null) {
+                            log.warn("发现 goodsId 为 null 的 SCSkuActivityVO: {}", vo);
+                            return false;
+                        }
+                        return true;
+                    })
+                    .map(SCSkuActivityVO::getGoodsId)
+                    .collect(Collectors.toList());
+
+            log.info("过滤后的商品ID列表: {}", goodsIdList);
+
+            if (goodsIdList.isEmpty())
+                return Collections.emptyList();
+
+            List<Sku> skuList = skuDao.querySkuByGoodsIds(goodsIdList);
+            log.info("查询到的SKU数据: {}", skuList != null ? skuList.size() : 0);
+
+            if (null == skuList || skuList.isEmpty())
+                return Collections.emptyList();
+
+            Map<String, Sku> skuMap = skuList.stream()
+                    .filter(sku -> {
+                        if (sku == null) {
+                            log.warn("发现 null 的 Sku 对象");
+                            return false;
+                        }
+                        if (sku.getGoodsId() == null) {
+                            log.warn("发现 goodsId 为 null 的 Sku: {}", sku);
+                            return false;
+                        }
+                        return true;
+                    })
+                    .collect(Collectors.toMap(Sku::getGoodsId, sku -> sku, (v1, v2) -> v1));
+
+            log.info("构建的SKU Map大小: {}", skuMap.size());
+
+            List<GoodsInfoEntity> goodsInfoEntities = new ArrayList<>();
+            for (SCSkuActivityVO scSkuActivity : scSkuActivityList) {
+                if (scSkuActivity == null || scSkuActivity.getGoodsId() == null) continue;
+
+                Sku sku = skuMap.get(scSkuActivity.getGoodsId());
+                if (sku == null) continue;
+
+                goodsInfoEntities.add(GoodsInfoEntity.builder()
+                        .activityId(scSkuActivity.getActivityId())
+                        .goodsId(sku.getGoodsId())
+                        .goodsName(sku.getGoodsName())
+                        .originalPrice(sku.getOriginalPrice())
+                        .build());
+            }
+
+            log.info("最终组装的商品信息数量: {}", goodsInfoEntities.size());
+            return goodsInfoEntities;
+        }, 20000L);  // 缓存20秒
+    }
 }

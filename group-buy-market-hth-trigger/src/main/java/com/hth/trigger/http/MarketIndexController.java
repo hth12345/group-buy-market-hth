@@ -3,12 +3,12 @@ package com.hth.trigger.http;
 import cn.bugstack.wrench.rate.limiter.types.annotations.RateLimiterAccessInterceptor;
 import com.alibaba.fastjson.JSON;
 import com.hth.api.IMarketIndexService;
+import com.hth.api.dto.AllActivitiesRequestDTO;
+import com.hth.api.dto.AllActivitiesResponseDTO;
 import com.hth.api.dto.GoodsMarketRequestDTO;
 import com.hth.api.dto.GoodsMarketResponseDTO;
 import com.hth.api.response.Response;
-import com.hth.domain.activity.model.entity.MarketProductEntity;
-import com.hth.domain.activity.model.entity.TrialBalanceEntity;
-import com.hth.domain.activity.model.entity.UserGroupBuyOrderDetailEntity;
+import com.hth.domain.activity.model.entity.*;
 import com.hth.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
 import com.hth.domain.activity.model.valobj.TeamStatisticVO;
 import com.hth.domain.activity.service.IIndexGroupBuyMarketService;
@@ -21,6 +21,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController()
@@ -121,6 +122,73 @@ public class MarketIndexController implements IMarketIndexService {
                     .build();
         }
     }
+
+    /**
+     *
+     * 拼团活动展示
+     */
+    @RequestMapping(value = "query_all_activities", method = RequestMethod.POST)
+    @Override
+    public Response<List<AllActivitiesResponseDTO>> queryAllActivities(@RequestBody AllActivitiesRequestDTO requestDTO) {
+        try {
+            log.info("查询所有活动开始:{}", requestDTO.getUserId());
+            if (StringUtils.isBlank(requestDTO.getUserId()) || StringUtils.isBlank(requestDTO.getSource()) || StringUtils.isBlank(requestDTO.getChannel())) {
+                return Response.<List<AllActivitiesResponseDTO>>builder()
+                        .code(ResponseCode.ILLEGAL_PARAMETER.getCode())
+                        .info(ResponseCode.ILLEGAL_PARAMETER.getInfo())
+                        .build();
+            }
+
+            ActivityQueryEntity activityQueryEntity = ActivityQueryEntity.builder()
+                    .userId(requestDTO.getUserId())
+                    .source(requestDTO.getSource())
+                    .channel(requestDTO.getChannel())
+                    .build();
+
+
+            List<ActivityInfoEntity> list = indexGroupBuyMarketService.queryAllActivities(activityQueryEntity);
+            List<AllActivitiesResponseDTO> activitiesList = new ArrayList<>();
+            for (ActivityInfoEntity activityInfoEntity : list) {
+                // 将活动关联的商品列表转换为 DTO 内部类
+                List<AllActivitiesResponseDTO.Goods> goodsList = null;
+                if (activityInfoEntity.getGoodsInfoEntityList() != null) {
+                    goodsList = activityInfoEntity.getGoodsInfoEntityList().stream()
+                            .map(goods -> AllActivitiesResponseDTO.Goods.builder()
+                                    .goodsId(goods.getGoodsId())
+                                    .goodsName(goods.getGoodsName())
+                                    .originalPrice(goods.getOriginalPrice())
+                                    .build())
+                            .collect(Collectors.toList());
+                }
+                activitiesList.add(AllActivitiesResponseDTO.builder()
+                        .activityId(activityInfoEntity.getActivityId())
+                        .activityName(activityInfoEntity.getActivityName())
+                        .discountId(activityInfoEntity.getDiscountId())
+                        .groupType(activityInfoEntity.getGroupType())
+                        .takeLimitCount(activityInfoEntity.getTakeLimitCount())
+                        .target(activityInfoEntity.getTarget())
+                        .validTime(activityInfoEntity.getValidTime())
+                        .status(activityInfoEntity.getStatus())
+                        .startTime(activityInfoEntity.getStartTime())
+                        .endTime(activityInfoEntity.getEndTime())
+                        .goods(goodsList)
+                        .build());
+            }
+            return Response.<List<AllActivitiesResponseDTO>>builder()
+                    .code(ResponseCode.SUCCESS.getCode())
+                    .info(ResponseCode.SUCCESS.getInfo())
+                    .data(activitiesList)
+                    .build();
+        } catch (Exception e) {
+            log.error("查询所有活动失败", e);
+            return Response.<List<AllActivitiesResponseDTO>>builder()
+                    .code(ResponseCode.UN_ERROR.getCode())
+                    .info(ResponseCode.UN_ERROR.getInfo())
+                    .build();
+        }
+    }
+
+
     public Response<GoodsMarketResponseDTO> queryGroupBuyMarketConfigFallBack(@RequestBody GoodsMarketRequestDTO requestDTO) {
         log.error("查询拼团营销配置限流:{}", requestDTO.getUserId());
         return Response.<GoodsMarketResponseDTO>builder()

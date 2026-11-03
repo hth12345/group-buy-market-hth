@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author hth
  * @description 拼团回调服务
  * @create 2025-01-31 09:12
  */

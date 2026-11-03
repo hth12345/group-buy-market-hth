@@ -25,7 +25,7 @@ import java.io.IOException;
 /**
  * Redis 客户端，使用 Redisson <a href="https://github.com/redisson/redisson">Redisson</a>
  *
- * @author Fuzhengwei bugstack.cn @小傅哥
+ * @author hth
  */
 @Configuration
 @EnableConfigurationProperties(RedisClientConfigProperties.class)

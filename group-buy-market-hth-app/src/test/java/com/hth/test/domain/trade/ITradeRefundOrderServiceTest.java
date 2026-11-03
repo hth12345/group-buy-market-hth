@@ -16,7 +16,7 @@ import java.util.concurrent.CountDownLatch;
 /**
  * 逆向流程单测
  *
- * @author xiaofuge bugstack.cn @小傅哥
+ * @author hth
  * 2025/7/12 09:07
  */
 @Slf4j

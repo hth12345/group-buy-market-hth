@@ -1,0 +1,3 @@
+# 此目录用于存放 Pinia Store 状态管理文件
+# 【类比后端】相当于 Service 层中管理全局状态的部分（类似 ThreadLocal/Session 的集中管理）
+# 例如：userStore.ts 管理用户登录状态、用户信息等全局共享数据

@@ -18,5 +18,13 @@
         from sku
         where goods_id = #{goodsId}
     </select>
+    <select id="querySkuByGoodsIds" resultMap="dataMap">
+        select goods_id, goods_name, original_price
+        from sku
+        where goods_id in
+        <foreach item="goodsId" collection="goodsIdList" separator="," open="(" close=")">
+            #{goodsId}
+        </foreach>
+    </select>
 
 </mapper>

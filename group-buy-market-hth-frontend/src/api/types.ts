@@ -214,3 +214,69 @@ export interface RefundMarketPayOrderResponseDTO {
   code: string         // 退单结果状态码
   info: string         // 退单结果描述
 }
+
+// =============================================
+// 六、查询所有活动列表（对应 AllActivitiesResponseDTO）
+// =============================================
+
+/**
+ * 查询所有活动 - 请求参数
+ * 【类比后端】com.hth.api.dto.AllActivitiesRequestDTO
+ *
+ * 首页加载所有可见活动时需要传给后端的参数
+ */
+export interface QueryAllActivitiesRequestDTO {
+  userId: string      // 当前登录用户ID（必填，用于判断是否可参与）
+  source?: string     // 渠道（可选，如 APP、H5）
+  channel?: string    // 来源（可选，如微信、支付宝）
+}
+
+/**
+ * 活动关联的商品信息
+ * 【类比后端】AllActivitiesResponseDTO.Goods 内部类
+ *
+ * 【前端概念】嵌套接口定义
+ * - 一个活动（AllActivitiesResponseDTO）包含多个商品（ActivityGoods）
+ * - 这就是一对多关系：Activity 1:N Goods
+ * - 【类比后端】相当于 Java 内部类：
+ *   public class AllActivitiesResponseDTO {
+ *       private List<Goods> goods;
+ *       public static class Goods { ... }
+ *   }
+ * - 前端将内部类拆成独立的 interface，通过引用关联
+ */
+export interface ActivityGoods {
+  goodsId: string             // 商品ID（唯一标识，类比数据库主键）
+  goodsName: string           // 商品名称（展示用）
+  originalPrice: number       // 商品原价（单位：元，用于划线价展示）
+}
+
+/**
+ * 查询所有活动 - 响应数据（嵌套结构：一个活动对应多个商品）
+ * 【类比后端】com.hth.api.dto.AllActivitiesResponseDTO
+ *
+ * 【重要改动】现在采用嵌套结构：
+ * - 旧结构：每条记录 = 一个活动 + 一个商品（扁平化）
+ * - 新结构：每条记录 = 一个活动 + 多个商品（一对多嵌套）
+ *
+ * 【类比后端】
+ * - 旧：AllActivitiesResponseDTO { goodsId, goodsName, ... }  ← 一个活动一个商品
+ * - 新：AllActivitiesResponseDTO { List<Goods> goods, ... }   ← 一个活动多个商品
+ *
+ * 后端已过滤 visible=true 的活动，前端拿到的都是可见的
+ */
+export interface AllActivitiesResponseDTO {
+  activityId: number          // 活动ID（唯一标识，类比数据库主键）
+  activityName: string        // 活动名称（展示用，如 "双11精选好物拼团"）
+  discountId: string          // 折扣ID（关联折扣配置）
+  groupType: number           // 拼团方式（0=自动成团、1=达成目标拼团）
+  takeLimitCount: number      // 拼团次数限制（每人最多参团次数）
+  target: number              // 拼团目标人数（如 5 人成团）
+  validTime: number           // 拼团时长（单位：分钟，如 24 小时 = 1440 分钟）
+  status: number              // 活动状态（0=创建、1=生效、2=过期、3=废弃）
+  startTime: string           // 活动开始时间（ISO 8601 格式，如 "2026-11-01T00:00:00"）
+  endTime: string             // 活动结束时间（ISO 8601 格式，如 "2026-11-11T23:59:59"）
+  goods: ActivityGoods[]      // 活动关联的商品列表（嵌套结构，一对多关系）
+  // 【前端概念】ActivityGoods[] = Java 的 List<ActivityGoods>
+  // 每个活动下有多个商品，前端用 v-for 嵌套循环渲染
+}

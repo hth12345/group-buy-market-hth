@@ -25,6 +25,8 @@ import request from './request'  // 引入封装好的 Axios 实例（类比 @Au
 import type {
   GoodsMarketRequestDTO,     // 首页查询请求参数类型
   GoodsMarketResponseDTO,    // 首页查询响应数据类型
+  QueryAllActivitiesRequestDTO,   // 查询所有活动 - 请求参数
+  AllActivitiesResponseDTO,       // 查询所有活动 - 响应数据
 } from './types'
 
 /**
@@ -69,4 +71,36 @@ export function queryGroupBuyMarketConfig(
   // url 会自动拼接 baseURL，最终请求：/api/v1/gbm/index/query_group_buy_market_config
   // 【类比后端】相当于 RestTemplate.postForObject(url, request, Response.class)
   return request.post('/v1/gbm/index/query_group_buy_market_config', params)
+}
+
+/**
+ * 查询所有活动列表
+ *
+ * 【对应后端接口】
+ *   POST /api/v1/gbm/index/query_all_activities
+ *   Controller: MarketIndexController.queryAllActivities()
+ *   Service: IMarketIndexService.queryAllActivities()
+ *
+ * 【参数说明】
+ *   request: QueryAllActivitiesRequestDTO
+ *   - userId:  用户ID（必填，用于判断是否可参与该活动）
+ *   - source:  来源（可选）
+ *   - channel: 渠道（可选）
+ *
+ * 【返回值】
+ *   Promise<AllActivitiesResponseDTO[]>
+ *   - 返回一个数组，每个元素是一个活动卡片数据
+ *   - 后端已过滤 visible=true，前端拿到的都是可见活动
+ *   - 【类比后端】相当于 List<AllActivitiesResponseDTO>
+ *
+ * 【使用示例】
+ *   const activities = await queryAllActivities({ userId: 'user001' })
+ *   activities.forEach(a => console.log(a.goodsName, a.payPrice))
+ */
+export function queryAllActivities(
+  params: QueryAllActivitiesRequestDTO
+): Promise<AllActivitiesResponseDTO[]> {
+  // 发送 POST 请求到后端查询所有活动接口
+  // 【类比后端】相当于 RestTemplate.postForObject(url, request, List.class)
+  return request.post('/v1/gbm/index/query_all_activities', params)
 }
