@@ -16,7 +16,7 @@ public class DCCService {
     @DCCValue("cutRange:100")
     private String cutRange;
 
-    @DCCValue("whiteList:xiaofuge,hth,hth01,hth02")
+    @DCCValue("whiteList:hth,hth01,hth02")
     private String whiteList;
 
     @DCCValue("scBlacklist:s02c02")
