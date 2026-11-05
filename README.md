@@ -1,4 +1,4 @@
-# 拼团营销市场系统（Group Buy Market）
+q# 拼团营销市场系统（Group Buy Market）
 
 一个完整的拼团营销交易平台，采用前后端分离架构。后端基于 DDD（领域驱动设计）分层架构实现，前端使用 Vue 3 + TypeScript 构建拼多多风格的移动端商城页面。支持开团/参团、锁单、支付宝支付、结算、退款逆向、回调通知、人群标签、营销折扣试算等完整业务闭环。
 
@@ -13,7 +13,6 @@
 | 持久层 | MyBatis + MySQL 8.x |
 | 缓存 | Redis（Redisson 3.26.0） |
 | 消息队列 | RabbitMQ |
-| 鉴权 | JWT（java-jwt 4.4.0） |
 | 日志 | Logback + Logstash（ELK 上报） |
 | 监控 | Prometheus + Grafana |
 | 部署 | Docker Compose |
