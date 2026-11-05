@@ -157,6 +157,7 @@ public class MarketIndexController implements IMarketIndexService {
                                     .goodsId(goods.getGoodsId())
                                     .goodsName(goods.getGoodsName())
                                     .originalPrice(goods.getOriginalPrice())
+                                    .imageUrl(goods.getImageUrl())
                                     .build())
                             .collect(Collectors.toList());
                 }

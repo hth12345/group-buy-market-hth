@@ -21,6 +21,8 @@ public class GoodsInfoEntity {
     private String goodsName;
     // 原始价格
     private BigDecimal originalPrice;
+    // 商品图片URL
+    private String imageUrl;
     
     /**
      * 生成缓存键 - 根据活动ID列表查询所有商品

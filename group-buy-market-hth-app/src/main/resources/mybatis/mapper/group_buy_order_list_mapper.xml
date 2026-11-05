@@ -48,7 +48,7 @@
     <select id="queryOrderCountByActivityId" parameterType="com.hth.infrastructure.dao.po.GroupBuyOrderList"
             resultType="java.lang.Integer">
         select count(id) from group_buy_order_list
-        where user_id = #{userId} and activity_id = #{activityId}
+        where user_id = #{userId} and activity_id = #{activityId} and status in (0,1)
     </select>
 
     <update id="updateOrderStatus2COMPLETE" parameterType="com.hth.infrastructure.dao.po.GroupBuyOrderList">

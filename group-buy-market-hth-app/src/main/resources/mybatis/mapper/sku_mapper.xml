@@ -9,17 +9,18 @@
         <result column="goods_id" property="goodsId"/>
         <result column="goods_name" property="goodsName"/>
         <result column="original_price" property="originalPrice"/>
+        <result column="image_url" property="imageUrl"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <select id="querySkuByGoodsId" parameterType="java.lang.String" resultMap="dataMap">
-        select source, channel, goods_id, goods_name, original_price
+        select source, channel, goods_id, goods_name, original_price, image_url
         from sku
         where goods_id = #{goodsId}
     </select>
     <select id="querySkuByGoodsIds" resultMap="dataMap">
-        select goods_id, goods_name, original_price
+        select goods_id, goods_name, original_price, image_url
         from sku
         where goods_id in
         <foreach item="goodsId" collection="goodsIdList" separator="," open="(" close=")">

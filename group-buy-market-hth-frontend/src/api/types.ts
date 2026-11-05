@@ -64,9 +64,11 @@ export interface GoodsMarketRequestDTO {
  */
 export interface GoodsInfo {
   goodsId: string          // 商品ID
+  goodsName?: string       // 商品名称
   originalPrice: number    // 原价（单位：元）
   deductionPrice: number   // 优惠减免金额
   payPrice: number         // 实际支付价格 = 原价 - 优惠
+  imageUrl?: string        // 商品图片URL（可选）
 }
 
 /**
@@ -249,6 +251,7 @@ export interface ActivityGoods {
   goodsId: string             // 商品ID（唯一标识，类比数据库主键）
   goodsName: string           // 商品名称（展示用）
   originalPrice: number       // 商品原价（单位：元，用于划线价展示）
+  imageUrl?: string           // 商品图片URL（可选，为空时显示占位图）
 }
 
 /**

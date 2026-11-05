@@ -156,7 +156,7 @@ public class TradeRepository implements ITradeRepository {
                 .deductionPrice(payDiscountEntity.getDeductionPrice())
                 .status(TradeOrderStatusEnumVO.CREATE.getCode())
                 .outTradeNo(payDiscountEntity.getOutTradeNo())
-                .payPrice(payDiscountEntity.getDeductionPrice())  // 支付价格 = 抵扣后价格
+                .payPrice(payDiscountEntity.getPayPrice())  // 支付价格 = 原价 - 抵扣
                 // 构建 bizId 唯一值；活动id_用户id_参与次数累加
                 .bizId(payActivityEntity.getActivityId()+ Constants.UNDERLINE + userEntity.getUserId()+ Constants.UNDERLINE +(userTakeOrderCount+1) )
                 .build();

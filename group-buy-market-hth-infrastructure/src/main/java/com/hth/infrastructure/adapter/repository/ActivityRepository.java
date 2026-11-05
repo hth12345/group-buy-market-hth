@@ -87,6 +87,7 @@ public class ActivityRepository extends AbstractRepository implements IActivityR
                 .goodsId(sku.getGoodsId())
                 .goodsName(sku.getGoodsName())
                 .originalPrice(sku.getOriginalPrice())
+                .imageUrl(sku.getImageUrl())
                 .build();
     }
 
@@ -377,6 +378,7 @@ public class ActivityRepository extends AbstractRepository implements IActivityR
                         .goodsId(sku.getGoodsId())
                         .goodsName(sku.getGoodsName())
                         .originalPrice(sku.getOriginalPrice())
+                        .imageUrl(sku.getImageUrl())
                         .build());
             }
 

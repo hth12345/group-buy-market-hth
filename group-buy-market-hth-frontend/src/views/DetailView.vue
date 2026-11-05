@@ -1,251 +1,301 @@
 <!--
-  DetailView.vue - 商品详情页（重构版）
-  ======================================
-  【重构说明】按照 docs/ui/html/index.html 参考设计重构
-  - 顶部图片轮播（el-carousel）
-  - 商品信息区（标题、促销标签、价格）
-  - 拼团列表区（显示可参与的团）
-  - 底部操作栏（单独购买/开团购买按钮，固定底部）
-  - 支付弹窗（扫码支付）
-
-  【前端概念】Vue 单文件组件 = 模板 + 逻辑 + 样式
-  【类比后端】
-    - <template>  → JSP/Thymeleaf 页面模板
-    - <script>    → Controller 业务方法
-    - <style>     → CSS 样式文件
+  DetailView.vue - 商品详情页（拼多多风格）
+  ==========================================
+  【设计参考】拼多多商品详情页
+  - 顶部返回按钮 + 分享
+  - 商品图片轮播
+  - 拼团价格卡片（原价、拼团价、已拼件数）
+  - 拼团列表（带头像、进度条、倒计时）
+  - 商品详情（图文介绍）
+  - 底部固定操作栏（单独购买、开团购买）
 -->
 
 <template>
   <div class="detail-page">
-    <!-- ==================== 顶部图片轮播 ==================== -->
-    <!--
-      【Element Plus 组件】el-carousel 轮播图
-      - height: 轮播图高度
-      - indicator-position: 指示器位置
-      - autoplay: 自动播放
-      - interval: 播放间隔（毫秒）
-      【类比后端】相当于前端的多图展示组件，类似电商网站的商品图轮播
-    -->
-    <el-carousel height="375px" :interval="4000" indicator-position="outside">
-      <el-carousel-item v-for="(img, index) in productImages" :key="index">
-        <img :src="img" class="carousel-image" />
-      </el-carousel-item>
-    </el-carousel>
 
-    <!-- ==================== 商品信息区 ==================== -->
-    <!--
-      【前端概念】商品信息展示区
-      - 商品标题
-      - 促销标签（大促优惠）
-      - 促销描述（直降金额、抢购人数）
-      【类比后端】相当于展示 GoodsMarketResponseDTO 中的商品信息
-    -->
-    <div class="product-info">
-      <h1 class="product-title">{{ goodsInfo.goodsName }}</h1>
-      <div class="promotion-area">
-        <span class="promotion-tag">大促优惠</span>
-        <span class="promotion-text">
-          直降 ¥{{ goodsInfo.deductionPrice.toFixed(2) }}，
-          {{ teamStatistic.allTeamUserCount }}人正在抢
+    <!-- ==================== 顶部导航栏 ==================== -->
+    <header class="detail-nav">
+      <button class="back-btn" @click="goBack">
+        <span>&#x2190;</span>
+      </button>
+      <div class="nav-title">商品详情</div>
+      <button class="share-btn" @click="handleShare">
+        <span>&#x1F4E4;</span>
+      </button>
+    </header>
 
-        </span>
+    <!-- ==================== 商品图片轮播 ==================== -->
+    <div class="product-gallery">
+      <div class="gallery-wrapper">
+        <img
+          v-for="(img, index) in productImages"
+          :key="index"
+          :src="img"
+          class="gallery-image"
+          :class="{ active: currentImageIndex === index }"
+          @click="currentImageIndex = index"
+        />
       </div>
-      <div class="price-area">
-        <span class="original-price">原价 ¥{{ goodsInfo.originalPrice.toFixed(2) }}</span>
-        <span class="pay-price">¥{{ goodsInfo.payPrice.toFixed(2) }}</span>
+      <div class="gallery-dots">
+        <span
+          v-for="(_, index) in productImages"
+          :key="index"
+          class="dot"
+          :class="{ active: currentImageIndex === index }"
+          @click="currentImageIndex = index"
+        ></span>
       </div>
     </div>
 
-    <!-- ==================== 拼团列表区 ==================== -->
-    <!--
-      【前端概念】显示可参与的拼团列表
-      - v-for 遍历 teamList
-      - 每个团显示：团长、剩余人数、倒计时、参团按钮
-      【类比后端】相当于 <c:forEach items="${teamList}" var="team"> 在 JSTL 中
-    -->
-    <div class="group-list" v-if="teamList.length > 0">
-      <div class="group-list-title">正在拼团</div>
-      <div
-        v-for="team in teamList"
-        :key="team.teamId"
-        class="group-item"
-      >
-        <div class="group-info">
-          <div class="user-info">{{ team.userId }}</div>
-          <div class="group-status">
-            <span>组队仅剩{{ team.targetCount - team.completeCount }}人，拼单即将结束</span>
-            <span class="countdown">{{ team.validTimeCountdown }}</span>
-          </div>
+    <!-- ==================== 商品信息卡片 ==================== -->
+    <div class="product-card">
+      <!-- 价格区域 -->
+      <div class="price-section">
+        <div class="price-main">
+          <span class="price-symbol">¥</span>
+          <span class="price-integer">{{ getPriceInteger(goodsInfo.payPrice) }}</span>
+          <span class="price-decimal">.{{ getPriceDecimal(goodsInfo.payPrice) }}</span>
         </div>
-        <div class="group-action">
-          <button
-            class="group-btn"
-            @click="handleJoinTeam(team)"
-          >
-            参与拼团
+        <div class="price-original">
+          <span>原价 </span>
+          <span class="line-through">¥{{ goodsInfo.originalPrice.toFixed(2) }}</span>
+        </div>
+      </div>
+
+      <!-- 促销标签 -->
+      <div class="promo-tags">
+        <span class="promo-tag">
+          <span class="tag-icon">&#x1F525;</span>
+          直降¥{{ goodsInfo.deductionPrice.toFixed(2) }}
+        </span>
+      </div>
+
+      <!-- 商品标题 -->
+      <h1 class="product-title">{{ goodsInfo.goodsName }}</h1>
+
+      <!-- 商品描述 -->
+      <div class="product-desc">
+        <span class="desc-tag">品质保证</span>
+        <span class="desc-tag">正品保障</span>
+        <span class="desc-tag">极速退款</span>
+      </div>
+    </div>
+
+    <!-- ==================== 拼团信息卡片 ==================== -->
+    <div class="group-card">
+      <div class="group-card-header">
+        <div class="group-card-title">
+          <span class="title-icon">&#x1F465;</span>
+          <span>正在拼团 ({{ teamList.length }})</span>
+        </div>
+        <div class="group-stat">
+          已拼{{ teamStatistic.allTeamCompleteCount }}团
+        </div>
+      </div>
+
+      <!-- 拼团列表 -->
+      <div class="group-list" v-if="teamList.length > 0">
+        <div
+          v-for="team in teamList"
+          :key="team.teamId"
+          class="group-item"
+        >
+          <div class="group-left">
+            <!-- 团长头像 -->
+            <div class="leader-avatar">
+              <span>{{ team.userId.charAt(0).toUpperCase() }}</span>
+            </div>
+            <div class="group-info">
+              <div class="leader-name">{{ team.userId }}</div>
+              <div class="group-progress">
+                <div class="progress-bar">
+                  <div
+                    class="progress-fill"
+                    :style="{ width: (team.completeCount / team.targetCount * 100) + '%' }"
+                  ></div>
+                </div>
+                <span class="progress-text">
+                  还差{{ team.targetCount - team.completeCount }}人
+                </span>
+              </div>
+              <div class="group-countdown">
+                <span class="countdown-icon">&#x23F0;</span>
+                <span>{{ team.validTimeCountdown || '即将结束' }}</span>
+              </div>
+            </div>
+          </div>
+          <button class="join-btn" @click="handleJoinTeam(team)">
+            去参团
           </button>
         </div>
       </div>
+
+      <!-- 空状态 -->
+      <div class="empty-group" v-else>
+        <div class="empty-icon">&#x1F389;</div>
+        <p class="empty-text">暂无进行中的拼团</p>
+        <p class="empty-hint">快来开团，邀请好友一起拼！</p>
+      </div>
     </div>
 
-    <!-- 空状态提示 -->
-    <div class="empty-group" v-else>
-      <p>暂无进行中的拼团，快来开团吧！</p>
-    </div>
+    <!-- ==================== 商品详情卡片 ==================== -->
+    <div class="detail-card">
+      <div class="detail-card-header">
+        <span class="detail-icon">&#x1F4CB;</span>
+        <span>商品详情</span>
+      </div>
+      <div class="detail-content">
+        <div class="detail-section">
+          <h4 class="section-title">商品规格</h4>
+          <div class="spec-list">
+            <div class="spec-item">
+              <span class="spec-label">商品名称</span>
+              <span class="spec-value">{{ goodsInfo.goodsName }}</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">拼团人数</span>
+              <span class="spec-value">{{ targetCount }}人</span>
+            </div>
+            <div class="spec-item">
+              <span class="spec-label">有效期</span>
+              <span class="spec-value">24小时</span>
+            </div>
+          </div>
+        </div>
 
-    <!-- ==================== 空白区域（占位） ==================== -->
-    <div class="area"></div>
+        <div class="detail-section">
+          <h4 class="section-title">购买须知</h4>
+          <div class="notice-list">
+            <div class="notice-item">
+              <span class="notice-icon">&#x2714;</span>
+              <span>拼团成功后自动发货</span>
+            </div>
+            <div class="notice-item">
+              <span class="notice-icon">&#x2714;</span>
+              <span>未成团自动退款</span>
+            </div>
+            <div class="notice-item">
+              <span class="notice-icon">&#x2714;</span>
+              <span>支持7天无理由退换</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- ==================== 底部操作栏 ==================== -->
-    <!--
-      【前端概念】固定底部的操作栏
-      - position: fixed 固定在底部
-      - 两个按钮：单独购买（原价）、开团购买（拼团价）
-      【类比后端】相当于电商网站的底部购买栏
-    -->
     <div class="action-bar">
-      <button
-        class="action-btn buy-alone"
-        @click="handleBuyAlone"
-      >
-        单独购买(¥{{ goodsInfo.originalPrice.toFixed(2) }})
+      <button class="action-btn buy-alone" @click="handleBuyAlone">
+        <span class="btn-label">单独购买</span>
+        <span class="btn-price">¥{{ goodsInfo.originalPrice.toFixed(2) }}</span>
       </button>
-      <button
-        class="action-btn group-buy"
-        @click="handleCreateTeam"
-      >
-        开团购买(¥{{ goodsInfo.payPrice.toFixed(2) }})
+      <button class="action-btn group-buy" @click="handleCreateTeam">
+        <span class="btn-label">开团购买</span>
+        <span class="btn-price">¥{{ goodsInfo.payPrice.toFixed(2) }}</span>
       </button>
     </div>
 
     <!-- ==================== 支付弹窗 ==================== -->
-    <!--
-      【Element Plus 组件】el-dialog 对话框
-      - v-model 控制显示/隐藏
-      - title 标题
-      - width 宽度
-      【类比后端】相当于模态框组件，用于展示支付二维码
-    -->
-    <el-dialog
-      v-model="paymentDialogVisible"
-      title="请扫码支付"
-      width="400px"
-      :close-on-click-modal="false"
-    >
-      <div class="payment-content">
-        <p class="payment-amount">支付金额：¥{{ currentPayPrice.toFixed(2) }}</p>
-        <div class="qr-code-placeholder">
-          <span class="qr-icon">📱</span>
-          <p>扫码支付区域</p>
+    <div class="payment-overlay" v-if="paymentDialogVisible" @click="cancelPayment">
+      <div class="payment-dialog" @click.stop>
+        <div class="dialog-header">
+          <h3>请扫码支付</h3>
+          <button class="close-btn" @click="cancelPayment">&#x2715;</button>
         </div>
-        <div class="payment-tips">
-          <p>请使用微信或支付宝扫码支付</p>
+        <div class="dialog-body">
+          <p class="payment-amount">支付金额：<span>¥{{ currentPayPrice.toFixed(2) }}</span></p>
+          <div class="qr-code-placeholder">
+            <span class="qr-icon">&#x1F4F1;</span>
+            <p>扫码支付区域</p>
+          </div>
+          <div class="payment-tips">
+            <p>请使用微信或支付宝扫码支付</p>
+          </div>
+        </div>
+        <div class="dialog-footer">
+          <button class="cancel-btn" @click="cancelPayment">取消支付</button>
+          <button class="confirm-btn" @click="completePayment">支付完成</button>
         </div>
       </div>
-      <template #footer>
-        <div class="dialog-footer">
-          <el-button @click="cancelPayment">取消支付</el-button>
-          <el-button type="primary" @click="completePayment">支付完成</el-button>
-        </div>
-      </template>
-    </el-dialog>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-/**
- * DetailView 业务逻辑（重构版）
- * ==============================
- * 【类比后端】相当于 DetailController 类
- * - 加载商品详情数据
- * - 处理参团/开团逻辑
- * - 处理支付逻辑
- */
-
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import { queryGroupBuyMarketConfig } from '../api/index'
-import { lockMarketPayOrder } from '../api/trade'
 import type {
   GoodsMarketResponseDTO,
   TeamInfo,
-  LockMarketPayOrderRequestDTO,
 } from '../api/types'
 import { useUserStore } from '../stores/user'
 
-// 路由和 Store 实例
 const route = useRoute()
 const router = useRouter()
 const userStore = useUserStore()
 
-// ==================== 响应式数据 ====================
+const productImages = ref<string[]>([])
 
-// 商品图片列表（轮播图）- 使用占位图
-const productImages = ref([
-  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="375"%3E%3Crect fill="%23ff5000" width="400" height="375"/%3E%3Ctext fill="white" font-size="24" x="50%" y="50%" text-anchor="middle" dy=".3em"%3E商品图片 1%3C/text%3E%3C/svg%3E',
-  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="375"%3E%3Crect fill="%23ff6a1a" width="400" height="375"/%3E%3Ctext fill="white" font-size="24" x="50%" y="50%" text-anchor="middle" dy=".3em"%3E商品图片 2%3C/text%3E%3C/svg%3E',
-  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="375"%3E%3Crect fill="%23ff8000" width="400" height="375"/%3E%3Ctext fill="white" font-size="24" x="50%" y="50%" text-anchor="middle" dy=".3em"%3E商品图片 3%3C/text%3E%3C/svg%3E',
-])
+const currentImageIndex = ref(0)
 
-// 商品信息
 const goodsInfo = ref({
   goodsId: '',
   goodsName: '拼团商品',
   originalPrice: 0,
   deductionPrice: 0,
   payPrice: 0,
+  imageUrl: '',
 })
 
-// 拼团列表
 const teamList = ref<TeamInfo[]>([])
 
-// 拼团统计
 const teamStatistic = ref({
   allTeamCount: 0,
   allTeamCompleteCount: 0,
   allTeamUserCount: 0,
 })
 
-// 活动ID
 const activityId = ref<number>(0)
-
-// 支付弹窗显示状态
+const targetCount = ref<number>(3)
 const paymentDialogVisible = ref(false)
-
-// 当前支付金额
 const currentPayPrice = ref(0)
-
-// 当前选择的团（参团时有值）
 const currentTeam = ref<TeamInfo | null>(null)
 
-// ==================== 生命周期 ====================
-
 onMounted(() => {
-  // 从路由参数获取 activityId 和 goodsId
   const query = route.query
   activityId.value = Number(query.activityId) || 0
   goodsInfo.value.goodsId = (query.goodsId as string) || ''
   goodsInfo.value.goodsName = (query.goodsName as string) || '拼团商品'
   goodsInfo.value.originalPrice = Number(query.originalPrice) || 0
+  goodsInfo.value.imageUrl = (query.imageUrl as string) || ''
+  targetCount.value = Number(query.target) || 3
 
-  // 参数校验
+  // 设置商品图片列表
+  if (goodsInfo.value.imageUrl) {
+    // 如果有图片URL，使用该图片生成多张图片（模拟轮播）
+    productImages.value = [
+      goodsInfo.value.imageUrl,
+      goodsInfo.value.imageUrl,
+      goodsInfo.value.imageUrl,
+    ]
+  } else {
+    // 否则使用默认占位图
+    productImages.value = [
+      'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="400" height="375"%3E%3Crect fill="%23ff5000" width="400" height="375"/%3E%3Ctext fill="white" font-size="24" x="50%" y="50%" text-anchor="middle" dy=".3em"%3E' + encodeURIComponent(goodsInfo.value.goodsName.substring(0, 6)) + '%3C/text%3E%3C/svg%3E',
+    ]
+  }
+
   if (!activityId.value || !goodsInfo.value.goodsId) {
     ElMessage.error('商品参数缺失，请从首页重新选择')
     router.push({ name: 'home' })
     return
   }
 
-  // 加载商品详情数据
   loadData()
 })
 
-// ==================== 数据加载 ====================
-
-/**
- * 从后端加载商品详情数据
- * 【类比后端】相当于 @GetMapping("/detail") 查询商品配置和拼团列表
- */
 async function loadData() {
   try {
     const response: GoodsMarketResponseDTO = await queryGroupBuyMarketConfig({
@@ -255,19 +305,16 @@ async function loadData() {
       goodsId: goodsInfo.value.goodsId,
     })
 
-    // 更新商品信息
     goodsInfo.value = {
       goodsId: response.goods.goodsId,
-      goodsName: goodsInfo.value.goodsName, // 保持从路由参数获取的名称
+      goodsName: goodsInfo.value.goodsName,
       originalPrice: response.goods.originalPrice,
       deductionPrice: response.goods.deductionPrice,
       payPrice: response.goods.payPrice,
     }
 
-    // 更新拼团列表
     teamList.value = response.teamList || []
 
-    // 更新拼团统计
     teamStatistic.value = response.teamStatistic || {
       allTeamCount: 0,
       allTeamCompleteCount: 0,
@@ -279,269 +326,534 @@ async function loadData() {
   }
 }
 
-// ==================== 事件处理 ====================
+function goBack() {
+  router.back()
+}
 
-/**
- * 处理参团
- * 【类比后端】相当于点击"参与拼团"按钮，准备锁单
- */
+function handleShare() {
+  ElMessage.success('分享功能开发中')
+}
+
 function handleJoinTeam(team: TeamInfo) {
   currentTeam.value = team
   currentPayPrice.value = goodsInfo.value.payPrice
-  // 直接发起锁单请求
-  lockOrder(team.teamId)
+  goToPay(team.teamId)
 }
 
-/**
- * 处理单独购买
- * 【类比后端】相当于以原价购买，不开团
- */
 function handleBuyAlone() {
   currentPayPrice.value = goodsInfo.value.originalPrice
   currentTeam.value = null
-  // 显示支付弹窗（单独购买走普通购买流程）
   paymentDialogVisible.value = true
 }
 
-/**
- * 处理开团购买
- * 【类比后端】相当于创建新团并以拼团价购买
- */
 function handleCreateTeam() {
   currentPayPrice.value = goodsInfo.value.payPrice
   currentTeam.value = null
-  // 发起锁单请求（teamId 为空表示开新团）
-  lockOrder('')
+  goToPay('')
 }
 
-/**
- * 发起锁单请求
- * 【类比后端】相当于调用 tradeService.lockMarketPayOrder()
- */
-async function lockOrder(teamId: string) {
-  try {
-    const request: LockMarketPayOrderRequestDTO = {
-      userId: userStore.username,
-      teamId: teamId,
-      activityId: activityId.value,
+// 跳转支付页。锁单由支付后端 create_pay_order 统一发起，
+// 支付后端生成的 orderId 即为拼团后端的 outTradeNo，避免前端重复锁单产生两条记录。
+function goToPay(teamId: string) {
+  router.push({
+    name: 'pay',
+    query: {
+      teamId,
+      payPrice: goodsInfo.value.payPrice.toString(),
+      originalPrice: goodsInfo.value.originalPrice.toString(),
+      deductionPrice: goodsInfo.value.deductionPrice.toString(),
       goodsId: goodsInfo.value.goodsId,
-      source: 's01',
-      channel: 'c01',
-      outTradeNo: generateOutTradeNo(),
-      notifyConfigVO: {
-        notifyType: 'HTTP',
-        notifyUrl: 'http://localhost:8091/api/v1/test/group_buy_notify',
-      },
-    }
-
-    const result = await lockMarketPayOrder(request)
-
-    ElMessage.success('锁单成功！')
-
-    // 跳转到支付页
-    router.push({
-      name: 'pay',
-      query: {
-        orderId: result.orderId,
-        teamId: result.teamId,
-        payPrice: result.payPrice.toString(),
-        originalPrice: result.originalPrice.toString(),
-        deductionPrice: result.deductionPrice.toString(),
-        outTradeNo: request.outTradeNo,
-        goodsId: goodsInfo.value.goodsId,
-        goodsName: goodsInfo.value.goodsName,
-      },
-    })
-  } catch (error) {
-    console.error('锁单失败:', error)
-    ElMessage.error('锁单失败，请重试')
-  }
+      goodsName: goodsInfo.value.goodsName,
+      activityId: activityId.value.toString(),
+    },
+  })
 }
 
-/**
- * 生成外部交易单号
- * 【类比后端】相当于 UUID 或 SnowFlake 生成订单号
- */
-function generateOutTradeNo(): string {
-  const timestamp = Date.now().toString()
-  const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0')
-  return (timestamp + random).slice(0, 12)
-}
-
-/**
- * 取消支付
- */
 function cancelPayment() {
   paymentDialogVisible.value = false
   currentTeam.value = null
 }
 
-/**
- * 完成支付
- */
 function completePayment() {
   ElMessage.success('支付成功！')
   paymentDialogVisible.value = false
-  // 跳转到订单页
   router.push({ name: 'orders' })
+}
+
+// ==================== 辅助函数 ====================
+
+function getPriceInteger(price: number): string {
+  return Math.floor(price).toString()
+}
+
+function getPriceDecimal(price: number): string {
+  const decimal = (price % 1).toFixed(2).slice(2)
+  return decimal === '00' ? '00' : decimal
 }
 </script>
 
 <style scoped>
-/**
- * DetailView 样式（按照 index.css 重构）
- * 【前端概念】scoped 表示样式只对当前组件生效
- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-/* 页面容器 */
 .detail-page {
   background: #f5f5f5;
   min-height: 100vh;
-  padding-bottom: 70px; /* 为底部操作栏留出空间 */
+  padding-bottom: 70px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
-/* ==================== 轮播图样式 ==================== */
-.carousel-image {
+/* ==================== 顶部导航栏 ==================== */
+.detail-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  height: 50px;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.back-btn, .share-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+.back-btn:hover, .share-btn:hover {
+  background: #e8e8e8;
+  transform: scale(1.05);
+}
+
+.nav-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ==================== 商品图片轮播 ==================== */
+.product-gallery {
+  background: white;
+  padding: 10px 0;
+}
+
+.gallery-wrapper {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.gallery-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery-image {
+  flex: 0 0 100%;
   width: 100%;
   height: 375px;
   object-fit: cover;
+  scroll-snap-align: start;
+  display: none;
 }
 
-/* ==================== 商品信息样式 ==================== */
-.product-info {
-  padding: 15px;
+.gallery-image.active {
+  display: block;
+}
+
+.gallery-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ddd;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dot.active {
+  background: #ff5000;
+  width: 20px;
+  border-radius: 4px;
+}
+
+/* ==================== 商品信息卡片 ==================== */
+.product-card {
   background: white;
-  margin-bottom: 10px;
+  margin: 10px;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.price-section {
+  margin-bottom: 12px;
+}
+
+.price-main {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.price-symbol {
+  font-size: 16px;
+  color: #ff5000;
+  font-weight: 600;
+}
+
+.price-integer {
+  font-size: 32px;
+  color: #ff5000;
+  font-weight: 700;
+}
+
+.price-decimal {
+  font-size: 16px;
+  color: #ff5000;
+  font-weight: 600;
+}
+
+.price-original {
+  font-size: 13px;
+  color: #999;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.promo-tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.promo-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: #fff3eb;
+  color: #ff5000;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.promo-tag.stock-tag {
+  background: #ffebeb;
+  color: #ff3030;
+}
+
+.tag-icon {
+  font-size: 12px;
 }
 
 .product-title {
   font-size: 18px;
+  font-weight: 600;
   color: #333;
   line-height: 1.4;
-  margin: 0 0 8px 0;
+  margin-bottom: 12px;
 }
 
-.promotion-area {
-  margin-bottom: 8px;
-}
-
-.promotion-tag {
-  display: inline-block;
-  padding: 2px 6px;
-  background: linear-gradient(90deg, #ff5000, #ff8000);
-  color: white;
-  border-radius: 2px;
-  font-size: 12px;
-  margin-right: 8px;
-}
-
-.promotion-text {
-  font-size: 14px;
-  color: #ff5000;
-}
-
-.price-area {
+.product-desc {
   display: flex;
-  align-items: baseline;
-  gap: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.original-price {
-  font-size: 14px;
-  color: #999;
-  text-decoration: line-through;
+.desc-tag {
+  padding: 4px 10px;
+  background: #f5f5f5;
+  color: #666;
+  border-radius: 4px;
+  font-size: 12px;
 }
 
-.pay-price {
-  font-size: 24px;
-  color: #ff5000;
-  font-weight: bold;
-}
-
-/* ==================== 拼团列表样式 ==================== */
-.group-list {
-  margin: 15px;
+/* ==================== 拼团信息卡片 ==================== */
+.group-card {
   background: white;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 10px;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
-.group-list-title {
+.group-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.group-card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   color: #333;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #eee;
+}
+
+.title-icon {
+  font-size: 18px;
+}
+
+.group-stat {
+  font-size: 13px;
+  color: #999;
+}
+
+.group-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
 .group-item {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  justify-content: space-between;
+  padding: 12px;
+  background: #fafafa;
+  border-radius: 10px;
+  transition: all 0.2s;
 }
 
-.group-item:last-child {
-  border-bottom: none;
+.group-item:hover {
+  background: #fff3eb;
+}
+
+.group-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.leader-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff5000, #ff7040);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .group-info {
   flex: 1;
 }
 
-.user-info {
+.leader-name {
   font-size: 14px;
+  font-weight: 500;
   color: #333;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-.group-status {
+.group-progress {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-bottom: 6px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 6px;
+  background: #e8e8e8;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #ff5000, #ff7040);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 12px;
+  color: #ff5000;
+  font-weight: 500;
+  min-width: 50px;
+}
+
+.group-countdown {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   font-size: 12px;
   color: #999;
 }
 
-.countdown {
-  color: #ff5000;
-  font-weight: bold;
+.countdown-icon {
+  font-size: 12px;
 }
 
-.group-btn {
-  background: #ff5000;
+.join-btn {
+  padding: 8px 16px;
+  background: linear-gradient(90deg, #ff5000, #ff7040);
   color: white;
   border: none;
-  padding: 8px 20px;
-  border-radius: 15px;
-  font-size: 14px;
+  border-radius: 18px;
+  font-size: 13px;
+  font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
 }
 
-.group-btn:hover {
-  background: #ff6a1a;
+.join-btn:hover {
   transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 80, 0, 0.3);
 }
 
-/* 空状态 */
 .empty-group {
-  padding: 40px 20px;
   text-align: center;
+  padding: 30px 20px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.empty-text {
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.empty-hint {
+  font-size: 13px;
   color: #999;
+}
+
+/* ==================== 商品详情卡片 ==================== */
+.detail-card {
+  background: white;
+  margin: 10px;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.detail-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.detail-icon {
+  font-size: 18px;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.spec-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.spec-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: #fafafa;
+  border-radius: 6px;
+}
+
+.spec-label {
+  font-size: 13px;
+  color: #666;
+}
+
+.spec-value {
+  font-size: 13px;
+color: #333;
+  font-weight: 500;
+}
+
+.notice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.notice-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f5fff5;
+  border-radius: 6px;
+}
+
+.notice-icon {
+  color: #67c23a;
   font-size: 14px;
 }
 
-/* 占位区域 */
-.area {
-  padding: 30px;
-  border-top: 1px solid #eee;
+.notice-item span:last-child {
+  font-size: 13px;
+  color: #333;
 }
 
-/* ==================== 底部操作栏样式 ==================== */
+/* ==================== 底部操作栏 ==================== */
 .action-bar {
   position: fixed;
   bottom: 0;
@@ -551,7 +863,7 @@ function completePayment() {
   padding: 10px 15px;
   display: flex;
   gap: 10px;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
   z-index: 100;
 }
 
@@ -559,53 +871,131 @@ function completePayment() {
   flex: 1;
   padding: 12px;
   border: none;
-  border-radius: 8px;
-  font-size: 16px;
+  border-radius: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
 }
 
 .buy-alone {
-  background: #ffece5;
+  background: #fff3eb;
   color: #ff5000;
 }
 
 .buy-alone:hover {
-  background: #ffd9c5;
+  background: #ffe8d9;
 }
 
 .group-buy {
-  background: linear-gradient(90deg, #ff5000, #ff8000);
+  background: linear-gradient(90deg, #ff5000, #ff7040);
   color: white;
 }
 
 .group-buy:hover {
-  background: linear-gradient(90deg, #ff6a1a, #ff9a1a);
+  background: linear-gradient(90deg, #ff4000, #ff6030);
+  box-shadow: 0 4px 12px rgba(255, 80, 0, 0.3);
 }
 
-/* ==================== 支付弹窗样式 ==================== */
-.payment-content {
+.btn-label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.btn-price {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ==================== 支付弹窗 ==================== */
+.payment-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.payment-dialog {
+  background: white;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  overflow: hidden;
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.dialog-header h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+.close-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.close-btn:hover {
+  background: #e8e8e8;
+}
+
+.dialog-body {
+  padding: 20px;
   text-align: center;
-  padding: 20px 0;
 }
 
 .payment-amount {
-  font-size: 18px;
+  font-size: 16px;
   color: #333;
   margin-bottom: 20px;
+}
+
+.payment-amount span {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ff5000;
 }
 
 .qr-code-placeholder {
   width: 200px;
   height: 200px;
-  margin: 20px auto;
+  margin: 0 auto 20px;
   border: 2px dashed #ddd;
-  border-radius: 8px;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #f9f9f9;
+  background: #fafafa;
 }
 
 .qr-icon {
@@ -620,14 +1010,66 @@ function completePayment() {
 }
 
 .payment-tips {
-  margin-top: 20px;
-  font-size: 14px;
+  font-size: 13px;
   color: #999;
 }
 
 .dialog-footer {
   display: flex;
-  justify-content: space-around;
   gap: 10px;
+  padding: 15px 20px;
+  border-top: 1px solid #f5f5f5;
+}
+
+.cancel-btn, .confirm-btn {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-btn {
+  background: #f5f5f5;
+  color: #666;
+}
+
+.cancel-btn:hover {
+  background: #e8e8e8;
+}
+
+.confirm-btn {
+  background: linear-gradient(90deg, #ff5000, #ff7040);
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: linear-gradient(90deg, #ff4000, #ff6030);
+}
+
+/* ==================== 响应式适配 ==================== */
+@media (max-width: 480px) {
+  .gallery-image {
+    height: 280px;
+  }
+
+  .price-integer {
+    font-size: 28px;
+  }
+
+  .action-btn {
+n: 10px;
+  }
+
+  .btn-label {
+    font-size: 13px;
+  }
+
+  .btn-price {
+    font-size: 15px;
+  }
 }
 </style>

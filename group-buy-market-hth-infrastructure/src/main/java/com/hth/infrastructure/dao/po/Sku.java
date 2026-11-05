@@ -31,6 +31,8 @@ public class Sku {
     private String goodsName;
     /** 原始价格 */
     private BigDecimal originalPrice;
+    /** 商品图片URL */
+    private String imageUrl;
     /** 创建时间 */
     private Date createTime;
     /** 更新时间 */
